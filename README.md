@@ -120,6 +120,10 @@ caller mic (48 kHz) ─▶ browser: [optional fan/TV noise] ─▶ 300–3400 Hz
 
 ## Deployment (Render + Vercel)
 
+**Live:** website <https://scam-shield-zeta-three.vercel.app> · backend API <https://scam-shield-api-davx.onrender.com/api/health> · code <https://github.com/Neha-Sharmaaa/scam-shield>
+
+Redeploy: pushing to `main` auto-deploys Render. For Vercel, run `scripts/build_vercel.py <render-url>` and then `scripts/deploy_vercel.py`.
+
 - **Backend on Render** (`render.yaml`): a FastAPI web service. `GNANI_API_KEY` is a secret env var set on Render and never committed. `GNANI_DAILY_CAP` (default 400) caps real Gnani requests per day. Each visitor is rate-limited (20 calls/hour), so a public link can't drain credits.
 - **Website on Vercel**: `python scripts/build_vercel.py https://<render-url>` builds `.deploy/scam-shield/`, the static pages and media plus a `vercel.json` that **proxies `/api/*` to Render**. The browser talks to one origin, and the key stays on Render.
 - The free Render tier sleeps when idle, so the first request after a while takes about 30–60 s. Its disk is temporary: the demo call log resets on restart. Gena's fixed Hindi lines ship pre-rendered in `app/tts_seed/`, so restarts don't spend TTS credits.
