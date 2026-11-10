@@ -41,7 +41,11 @@ NARRATION = {
     "s4": "Safe messages are read to Papa, in his own language.",
     "m1": "But what if the scammer speaks English?",
     "m2": "Tamil, Telugu, Bengali... जीना replies in whatever language the caller speaks.",
-    "m4": "Then जीना tells the family what happened, in their own language.",
+    "m4": "On your phone, the Family Dashboard shows every call. And जीना tells you what happened, in your own language.",
+    "f1": "Here's how it works.",
+    "f2": "जीना answers unknown calls on Papa's number, in the caller's language.",
+    "f3": "You see every call on the Family Dashboard, on your phone.",
+    "f4": "And Papa only hears the safe messages, in his own language.",
     "m3": "And Papa always hears the message in his own language.",
     "n5": "And if it's ever unsure, a genuine caller just leaves a message.",
     "n6": "Scam Shield. Built on Gnani Prisma and Timbre. Try it live. The link is in the post.",
@@ -119,9 +123,15 @@ async def main():
         # 3. meet Gena
         await scene("meet", 24)
         d = await say("n3", 0.5); await asyncio.sleep(d + 0.3)
+        # 5b. how it works: the two sides (flow appears in sync with narration)
+        await scene("flow", 34)
+        for i, k in enumerate(("f1", "f2", "f3", "f4"), 1):
+            await pg.evaluate(f"flowStep({i})")
+            d = await say(k, 0.15); await asyncio.sleep(d + 0.1)
+        await asyncio.sleep(0.6)
         # 6. multilingual: English scammer -> Hindi family
         await scene("multi", 40)
-        await pg.evaluate("a => chatReset(...a)", ["A scammer calls a Hindi family <em>in English.</em>", "Unknown caller · +91 00000 40001", "Gena speaks हिन्दी"])
+        await pg.evaluate("a => chatReset(...a)", ["A scammer calls Papa <em>in English.</em> The family speaks Hindi.", "Unknown caller · +91 00000 40001", "Gena speaks हिन्दी"])
         d = await say("m1", 0.2); await asyncio.sleep(d)
         await chat(LAUNCH["english"])
         # 6b. family dashboard: Gena's spoken summary (real, family language)
