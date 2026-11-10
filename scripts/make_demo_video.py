@@ -137,7 +137,7 @@ async def run(caller, narr, workdir: Path):
         await card("Scam Shield answers unknown calls <em>before Papa does</em>.",
                    "Fake police. Fake “relatives”. “Tell me the OTP.” Here's how it stops them.",
                    ["🎙️ Gnani Prisma", "🔊 Gnani Timbre", "📶 8 kHz phone audio"], "n2", 5.2, story="intro")
-        await cap("1", "A fake CBI officer calls Papa <small>…but the AI assistant picks up instead</small>", "scammer", "smirk")
+        await cap("1", "A fake CBI officer calls Papa <small>…but Gena, the AI assistant, picks up instead</small>", "scammer", "smirk")
         await pg.evaluate("hideCard()")
         await asyncio.sleep(0.7)            # let the card fade out before the clip starts
         marks["cbi"] = time.time()
@@ -160,7 +160,7 @@ async def run(caller, narr, workdir: Path):
         fr = await start_call("+91 00000 10002")
         await wait_turn(fr)
         await say(fr, "rel1")
-        await cap("2", "Family claim + panic + money = the classic scam <small>The assistant asks who they are, and never hands over the phone</small>", "shieldy", "alert")
+        await cap("2", "Family claim + panic + money = the classic scam <small>Gena asks who they are, and never hands over the phone</small>", "shieldy", "alert")
         await wait_turn(fr)
         await say(fr, "rel2")
         await wait_done(fr)
