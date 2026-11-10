@@ -309,9 +309,11 @@ function card(c) {
   else headline = reasons ? `<div class="reasons">${esc(reasons)}</div>` : '<div class="reasons none">No risk signals. Gena took a message.</div>';
   const lang = langPick[c.id] || settings?.parent_language || 'kn-IN';
   const cap = captions[c.id];
-  const play = (!live && r.verdict === 'green') ? `<div class="acts">
-      <button class="btn primary" data-play="${c.id}">🔊 Play message for Papa</button>
-      <select class="langsel" data-langsel="${c.id}" aria-label="Language for Papa">${Object.entries(LANGS).map(([k, v]) => `<option value="${k}" ${k === lang ? 'selected' : ''}>${v}</option>`).join('')}</select>
+  const screened = !live && !c.allow_listed;
+  const play = screened ? `<div class="acts">
+      <button class="btn ${r.verdict === 'green' ? 'ghost' : 'primary'}" data-summary="${c.id}">🗣 Gena's summary</button>
+      ${r.verdict === 'green' ? `<button class="btn primary" data-play="${c.id}">🔊 Play message for Papa</button>` : ''}
+      <select class="langsel" data-langsel="${c.id}" aria-label="Language">${Object.entries(LANGS).map(([k, v]) => `<option value="${k}" ${k === lang ? 'selected' : ''}>${v}</option>`).join('')}</select>
       <div class="caption ${cap ? 'on' : ''}" id="cap-${c.id}">${cap || ''}</div></div>` : '';
   const report = (!live && r.verdict === 'red') ? `<div class="acts">
       <a class="btn ghost" href="https://sancharsaathi.gov.in/sfc/" target="_blank" rel="noopener">Report on Chakshu ↗</a>
@@ -381,6 +383,8 @@ $('calls').addEventListener('click', e => {
   if (seg) { const id = seg.parentElement.dataset.seg; langPick[id] = seg.dataset.l; seg.parentElement.querySelectorAll('button').forEach(b => b.classList.toggle('on', b === seg)); return; }
   const pb = e.target.closest('[data-play]');
   if (pb) playMsg(pb.dataset.play, pb);
+  const sb = e.target.closest('[data-summary]');
+  if (sb) playMsg(sb.dataset.summary, sb, 'summary');
 });
 $('tabs').addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;
@@ -389,22 +393,22 @@ $('tabs').addEventListener('click', e => {
 
 function setCap(id, html) { captions[id] = html; const el = $('cap-' + id); if (el) { el.innerHTML = html; el.classList.toggle('on', !!html); } }
 
-async function playMsg(id, btn) {
+async function playMsg(id, btn, kind) {
   const lang = langPick[id] || settings?.parent_language || 'kn-IN';
   btn.disabled = true; setCap(id, 'Generating with Gnani Timbre…');
   try {
-    const res = await fetch(`/api/calls/${id}/parent_message`, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({language: lang})});
+    const res = await fetch(`/api/calls/${id}/${kind === 'summary' ? 'summary' : 'parent_message'}`, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({language: lang})});
     if (!res.ok) throw new Error((await res.json()).detail);
     const {clips} = await res.json();
     for (const c of clips) {
-      setCap(id, `<span class="eq"><i></i><i></i><i></i></span>${esc(c.text)}`);
+      setCap(id, `<span class="eq"><i></i><i></i><i></i></span><b>${kind === 'summary' ? 'Gena' : 'To Papa'}:</b> ${esc(c.text)}`);
       player.src = c.audio_url;
       (window.__events = window.__events || []).push({t: Date.now(), kind: 'parent', url: c.audio_url});
       await new Promise(r => { player.onended = r; player.onerror = r; player.play().catch(r); });
     }
     setCap(id, '✓ ' + esc(clips.map(c => c.text).join(' ')));
   } catch (e) { setCap(id, '⚠️ ' + esc(e.message)); }
-  const b = document.querySelector(`[data-play="${id}"]`); if (b) b.disabled = false;
+  document.querySelectorAll(`[data-play="${id}"], [data-summary="${id}"]`).forEach(b => { b.disabled = false; });
 }
 
 async function loadSettings() {

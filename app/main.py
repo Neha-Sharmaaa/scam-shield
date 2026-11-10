@@ -414,6 +414,23 @@ async def parent_message(call_id: str, body: PlayBody, request: Request):
     return {"clips": [{"text": t, "language": l, "audio_url": u} for (t, l), u in zip(clips, urls)]}
 
 
+@app.post("/api/calls/{call_id}/summary")
+async def call_summary(call_id: str, body: PlayBody, request: Request):
+    """Gena tells the family, in their language, what happened on the call and what she did."""
+    limit(request, "relay")
+    call = find_call(call_id)
+    if call.get("allow_listed") or call["status"] != "ended":
+        raise HTTPException(400, "summaries are for finished, screened calls")
+    family_lang = body.language or get_settings()["parent_language"]
+    if family_lang not in lang.LANGS:
+        family_lang = lang.DEFAULT
+    text = lang.call_summary(call["risk"], call.get("caller_lang"), family_lang)
+    url = await tts_url(text, family_lang)
+    if not url:
+        raise HTTPException(502, "Timbre TTS failed")
+    return {"clips": [{"text": text, "language": family_lang, "audio_url": url}]}
+
+
 @app.get("/api/languages")
 def languages():
     return {code: {"name": en, "native": native} for code, (en, native) in lang.LANGS.items()}

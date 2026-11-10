@@ -208,3 +208,15 @@ def test_relay_uses_family_language_not_callers():
     # known intent -> template in the family's language
     clips = L.parent_message({"intents": ["delivery"], "times": ["tomorrow"]}, "", "ta-IN", "en-IN")
     assert clips[0][1] == "ta-IN" and L.RELAY["ta-IN"]["tomorrow"] in clips[0][0]
+
+
+def test_call_summary_in_family_language():
+    r = assess("I am from the CBI. There is a case against you. Tell me the OTP now.", FAMILY)
+    s = L.call_summary(r, "en-IN", "hi-IN")
+    assert s.startswith(L.SUMMARY["hi-IN"]["intro_red"])
+    assert "English" in s and L.SUMMARY["hi-IN"]["credentials"] in s and L.SUMMARY["hi-IN"]["action_red"] in s
+    r = assess("Main Rohit bol raha hoon, naya number hai", FAMILY)            # unverified family, no pressure
+    s = L.call_summary(r, "hi-IN", "hi-IN")
+    assert L.SUMMARY["hi-IN"]["action_family"] in s and "English" not in s
+    for code in L.LANGS:                                                      # every language has every sentence
+        assert set(L.SUMMARY[code]) == set(L.SUMMARY["en-IN"])

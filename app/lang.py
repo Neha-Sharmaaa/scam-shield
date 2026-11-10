@@ -18,6 +18,7 @@ LANGS = {
     "bn-IN": ("Bengali", "বাংলা"),
 }
 DEFAULT = "hi-IN"
+SPOKEN_EN = "Jeena"   # how Timbre should pronounce the name in English (verified via Prisma round-trip)
 
 # ---------------------------------------------------------------- Gena's lines to the caller
 # {p} = parent's name. Hindi shows Roman Hinglish with Devanagari below; other Indic languages
@@ -37,7 +38,7 @@ _EN = {
 
 _LINES = {
     "hi-IN": {
-        "name": ("नमस्ते, मैं जेना बोल रही हूँ, {p} की सहायक। आप कौन बोल रहे हैं?", "Namaste, main Gena bol rahi hoon, {p} ki sahayak. Aap kaun bol rahe hain?"),
+        "name": ("नमस्ते, मैं जीना बोल रही हूँ, {p} की सहायक। आप कौन बोल रहे हैं?", "Namaste, main Gena bol rahi hoon, {p} ki sahayak. Aap kaun bol rahe hain?"),
         "org": ("आप किस कंपनी या विभाग से बोल रहे हैं?", "Aap kis company ya vibhag se bol rahe hain?"),
         "purpose": ("आपने किस काम के लिए कॉल किया है?", "Aapne kis kaam ke liye call kiya hai?"),
         "codeword": ("कृपया परिवार का कोड वर्ड बताइए।", "Kripya parivaar ka code word batayein."),
@@ -50,7 +51,7 @@ _LINES = {
         "close_red": ("धन्यवाद। यह कॉल समाप्त की जा रही है।", "Dhanyavaad. Yeh call samaapt ki ja rahi hai."),
     },
     "kn-IN": {
-        "name": "ನಮಸ್ಕಾರ, ನಾನು ಜೇನಾ, {p} ಅವರ ಸಹಾಯಕಿ. ಯಾರು ಮಾತನಾಡುತ್ತಿದ್ದೀರಿ?",
+        "name": "ನಮಸ್ಕಾರ, ನಾನು ಜೀನಾ, {p} ಅವರ ಸಹಾಯಕಿ. ಯಾರು ಮಾತನಾಡುತ್ತಿದ್ದೀರಿ?",
         "org": "ನೀವು ಯಾವ ಕಂಪನಿ ಅಥವಾ ಇಲಾಖೆಯಿಂದ ಕರೆ ಮಾಡುತ್ತಿದ್ದೀರಿ?",
         "purpose": "ನೀವು ಯಾವ ಕೆಲಸಕ್ಕಾಗಿ ಕರೆ ಮಾಡಿದ್ದೀರಿ?",
         "codeword": "ದಯವಿಟ್ಟು ಕುಟುಂಬದ ಕೋಡ್ ವರ್ಡ್ ಹೇಳಿ.",
@@ -62,7 +63,7 @@ _LINES = {
         "close_red": "ಧನ್ಯವಾದಗಳು. ಈ ಕರೆಯನ್ನು ಈಗ ಕೊನೆಗೊಳಿಸಲಾಗುತ್ತಿದೆ.",
     },
     "ta-IN": {
-        "name": "வணக்கம், நான் ஜேனா, {p} அவர்களின் உதவியாளர். யார் பேசுகிறீர்கள்?",
+        "name": "வணக்கம், நான் ஜீனா, {p} அவர்களின் உதவியாளர். யார் பேசுகிறீர்கள்?",
         "org": "நீங்கள் எந்த நிறுவனம் அல்லது துறையிலிருந்து பேசுகிறீர்கள்?",
         "purpose": "நீங்கள் எதற்காக அழைத்தீர்கள்?",
         "codeword": "தயவுசெய்து குடும்பத்தின் கோட் வேர்டைச் சொல்லுங்கள்.",
@@ -74,7 +75,7 @@ _LINES = {
         "close_red": "நன்றி. இந்த அழைப்பு இப்போது முடிக்கப்படுகிறது.",
     },
     "te-IN": {
-        "name": "నమస్కారం, నేను జేనా, {p} గారి సహాయకురాలిని. ఎవరు మాట్లాడుతున్నారు?",
+        "name": "నమస్కారం, నేను జీనా, {p} గారి సహాయకురాలిని. ఎవరు మాట్లాడుతున్నారు?",
         "org": "మీరు ఏ కంపెనీ లేదా విభాగం నుండి మాట్లాడుతున్నారు?",
         "purpose": "మీరు ఏ పని కోసం కాల్ చేశారు?",
         "codeword": "దయచేసి కుటుంబ కోడ్ వర్డ్ చెప్పండి.",
@@ -86,7 +87,7 @@ _LINES = {
         "close_red": "ధన్యవాదాలు. ఈ కాల్ ఇప్పుడు ముగించబడుతోంది.",
     },
     "mr-IN": {
-        "name": "नमस्कार, मी जेना बोलते आहे, {p} यांची सहाय्यक. आपण कोण बोलत आहात?",
+        "name": "नमस्कार, मी जीना बोलते आहे, {p} यांची सहाय्यक. आपण कोण बोलत आहात?",
         "org": "आपण कोणत्या कंपनी किंवा विभागातून बोलत आहात?",
         "purpose": "आपण कोणत्या कामासाठी फोन केला आहे?",
         "codeword": "कृपया कुटुंबाचा कोड वर्ड सांगा.",
@@ -98,7 +99,7 @@ _LINES = {
         "close_red": "धन्यवाद. हा कॉल आता संपवला जात आहे.",
     },
     "bn-IN": {
-        "name": "নমস্কার, আমি জেনা, {p}-এর সহকারী। কে বলছেন?",
+        "name": "নমস্কার, আমি জীনা, {p}-এর সহকারী। কে বলছেন?",
         "org": "আপনি কোন কোম্পানি বা বিভাগ থেকে বলছেন?",
         "purpose": "আপনি কী কাজে ফোন করেছেন?",
         "codeword": "অনুগ্রহ করে পরিবারের কোড ওয়ার্ডটি বলুন।",
@@ -119,7 +120,7 @@ def lines(parent_name: str, lang: str) -> dict:
     for key, en in _EN.items():
         en = en.format(p=parent_name)
         if lang == "en-IN":
-            out[key] = (en, en, "")
+            out[key] = (en.replace("Gena", SPOKEN_EN), en, "")   # TTS says "Jeena"; screen shows "Gena"
         elif lang == "hi-IN":
             dev, roman = _LINES["hi-IN"][key]
             dev, roman = dev.format(p=parent_name), roman.format(p=parent_name)
@@ -236,3 +237,114 @@ def detect(text: str, prisma_code: str = None) -> str:
     if not latin:
         return prisma_code if prisma_code in LANGS else None
     return "hi-IN" if sum(w in _HINGLISH for w in latin) >= 2 else "en-IN"
+
+
+# ---------------------------------------------------------------- Gena's call summary for the family
+# Spoken to the son/daughter in the family's language: what happened on the call and what Gena did.
+LANG_LATIN = {"hi-IN": "Hindi", "en-IN": "English", "kn-IN": "Kannada", "ta-IN": "Tamil",
+              "te-IN": "Telugu", "mr-IN": "Marathi", "bn-IN": "Bengali"}
+
+SUMMARY = {
+    "hi-IN": {"intro_red": "एक अनजान नंबर से एक संदिग्ध कॉल आया था।", "intro_yellow": "एक अनजान नंबर से कॉल आया था, जिसकी जाँच ज़रूरी है।",
+              "intro_green": "एक अनजान नंबर से कॉल आया था, जो सुरक्षित लगा।",
+              "spoke": "कॉलर {lang} में बात कर रहे थे, इसलिए मैंने भी {lang} में जवाब दिया।",
+              "credentials": "उन्होंने ओटीपी या बैंक की जानकारी माँगी।", "authority": "उन्होंने खुद को पुलिस या सरकारी अधिकारी बताया।",
+              "urgency": "उन्होंने डराया और जल्दी मचाई।", "secrecy": "उन्होंने किसी को न बताने को कहा।", "money": "उन्होंने पैसे माँगे।",
+              "remote_access": "उन्होंने एक ऐप डाउनलोड करने को कहा।", "family_emergency": "उन्होंने परिवार में किसी इमरजेंसी की बात कही।",
+              "unverified": "उन्होंने खुद को परिवार का बताया।",
+              "action_red": "मैंने कॉल विनम्रता से काट दी। पापा से बात नहीं कराई और कोई जानकारी नहीं दी।",
+              "action_yellow": "मैंने संदेश ले लिया है। कृपया एक बार देख लीजिए।",
+              "action_family": "कृपया उन्हें उसी नंबर पर कॉल करके जाँच लीजिए जो आपके पास पहले से है।",
+              "action_green": "मैंने उनका संदेश ले लिया है और पापा को सुना सकती हूँ।"},
+    "en-IN": {"intro_red": "An unknown number made a suspicious call.", "intro_yellow": "An unknown number called, and it needs a quick check.",
+              "intro_green": "An unknown number called, and it seemed safe.",
+              "spoke": "The caller spoke {lang}, so I replied in {lang}.",
+              "credentials": "They asked for an OTP or bank details.", "authority": "They claimed to be the police or a government officer.",
+              "urgency": "They made threats and created urgency.", "secrecy": "They asked to keep it a secret.", "money": "They asked for money.",
+              "remote_access": "They asked to download an app.", "family_emergency": "They talked about a family emergency.",
+              "unverified": "They claimed to be family.",
+              "action_red": "I ended the call politely. Papa was never connected, and nothing was shared.",
+              "action_yellow": "I took a message. Please take a look.",
+              "action_family": "Please call them back on a number you already have, to check.",
+              "action_green": "I took their message, and I can read it to Papa."},
+    "kn-IN": {"intro_red": "ಅಪರಿಚಿತ ನಂಬರ್‌ನಿಂದ ಒಂದು ಅನುಮಾನಾಸ್ಪದ ಕರೆ ಬಂದಿತ್ತು.", "intro_yellow": "ಅಪರಿಚಿತ ನಂಬರ್‌ನಿಂದ ಕರೆ ಬಂದಿತ್ತು, ಅದನ್ನು ಒಮ್ಮೆ ಪರಿಶೀಲಿಸಬೇಕು.",
+              "intro_green": "ಅಪರಿಚಿತ ನಂಬರ್‌ನಿಂದ ಕರೆ ಬಂದಿತ್ತು, ಅದು ಸುರಕ್ಷಿತವಾಗಿತ್ತು.",
+              "spoke": "ಕರೆ ಮಾಡಿದವರು {lang} ನಲ್ಲಿ ಮಾತನಾಡಿದರು, ಹಾಗಾಗಿ ನಾನೂ {lang} ನಲ್ಲಿ ಉತ್ತರಿಸಿದೆ.",
+              "credentials": "ಅವರು ಒಟಿಪಿ ಅಥವಾ ಬ್ಯಾಂಕ್ ವಿವರಗಳನ್ನು ಕೇಳಿದರು.", "authority": "ಅವರು ತಾವು ಪೊಲೀಸ್ ಅಥವಾ ಸರ್ಕಾರಿ ಅಧಿಕಾರಿ ಎಂದು ಹೇಳಿಕೊಂಡರು.",
+              "urgency": "ಅವರು ಬೆದರಿಸಿ ಅವಸರ ಮಾಡಿದರು.", "secrecy": "ಯಾರಿಗೂ ಹೇಳಬೇಡಿ ಎಂದು ಹೇಳಿದರು.", "money": "ಅವರು ಹಣ ಕೇಳಿದರು.",
+              "remote_access": "ಒಂದು ಆ್ಯಪ್ ಡೌನ್‌ಲೋಡ್ ಮಾಡಲು ಹೇಳಿದರು.", "family_emergency": "ಕುಟುಂಬದಲ್ಲಿ ತುರ್ತು ಪರಿಸ್ಥಿತಿ ಇದೆ ಎಂದು ಹೇಳಿದರು.",
+              "unverified": "ಅವರು ತಾವು ಕುಟುಂಬದವರು ಎಂದು ಹೇಳಿಕೊಂಡರು.",
+              "action_red": "ನಾನು ಕರೆಯನ್ನು ವಿನಯದಿಂದ ಕೊನೆಗೊಳಿಸಿದೆ. ಅಪ್ಪನಿಗೆ ಕರೆ ಸಂಪರ್ಕಿಸಲಿಲ್ಲ, ಯಾವ ಮಾಹಿತಿಯನ್ನೂ ನೀಡಲಿಲ್ಲ.",
+              "action_yellow": "ನಾನು ಸಂದೇಶವನ್ನು ತೆಗೆದುಕೊಂಡಿದ್ದೇನೆ. ದಯವಿಟ್ಟು ಒಮ್ಮೆ ನೋಡಿ.",
+              "action_family": "ದಯವಿಟ್ಟು ನಿಮ್ಮ ಬಳಿ ಈಗಾಗಲೇ ಇರುವ ನಂಬರ್‌ಗೆ ಕರೆ ಮಾಡಿ ಪರಿಶೀಲಿಸಿ.",
+              "action_green": "ನಾನು ಅವರ ಸಂದೇಶವನ್ನು ತೆಗೆದುಕೊಂಡಿದ್ದೇನೆ, ಅಪ್ಪನಿಗೆ ಓದಿ ಹೇಳಬಹುದು."},
+    "ta-IN": {"intro_red": "தெரியாத எண்ணிலிருந்து ஒரு சந்தேகத்திற்குரிய அழைப்பு வந்தது.", "intro_yellow": "தெரியாத எண்ணிலிருந்து அழைப்பு வந்தது, அதை ஒருமுறை சரிபார்க்க வேண்டும்.",
+              "intro_green": "தெரியாத எண்ணிலிருந்து அழைப்பு வந்தது, அது பாதுகாப்பானதாகத் தோன்றியது.",
+              "spoke": "அழைத்தவர் {lang}-இல் பேசினார், அதனால் நானும் {lang}-இல் பதில் சொன்னேன்.",
+              "credentials": "அவர்கள் ஓடிபி அல்லது வங்கி விவரங்களைக் கேட்டார்கள்.", "authority": "அவர்கள் தங்களை காவல்துறை அல்லது அரசு அதிகாரி என்று சொன்னார்கள்.",
+              "urgency": "அவர்கள் மிரட்டி அவசரப்படுத்தினார்கள்.", "secrecy": "யாரிடமும் சொல்ல வேண்டாம் என்று சொன்னார்கள்.", "money": "அவர்கள் பணம் கேட்டார்கள்.",
+              "remote_access": "ஒரு ஆப்பை டவுன்லோட் செய்யச் சொன்னார்கள்.", "family_emergency": "குடும்பத்தில் அவசரநிலை என்று சொன்னார்கள்.",
+              "unverified": "அவர்கள் தங்களை குடும்பத்தினர் என்று சொன்னார்கள்.",
+              "action_red": "நான் அழைப்பை மரியாதையாக முடித்தேன். அப்பாவுடன் இணைக்கவில்லை, எந்தத் தகவலும் கொடுக்கவில்லை.",
+              "action_yellow": "நான் செய்தியை எடுத்துக்கொண்டேன். தயவுசெய்து ஒருமுறை பாருங்கள்.",
+              "action_family": "உங்களிடம் ஏற்கனவே உள்ள எண்ணில் அவர்களை அழைத்து சரிபார்க்கவும்.",
+              "action_green": "நான் அவர்களின் செய்தியை எடுத்துக்கொண்டேன், அப்பாவுக்குப் படித்துச் சொல்ல முடியும்."},
+    "te-IN": {"intro_red": "తెలియని నంబర్ నుండి ఒక అనుమానాస్పద కాల్ వచ్చింది.", "intro_yellow": "తెలియని నంబర్ నుండి కాల్ వచ్చింది, దాన్ని ఒకసారి తనిఖీ చేయాలి.",
+              "intro_green": "తెలియని నంబర్ నుండి కాల్ వచ్చింది, అది సురక్షితంగా అనిపించింది.",
+              "spoke": "కాల్ చేసిన వారు {lang}లో మాట్లాడారు, అందుకే నేను కూడా {lang}లో సమాధానం ఇచ్చాను.",
+              "credentials": "వారు ఓటీపీ లేదా బ్యాంక్ వివరాలు అడిగారు.", "authority": "వారు తాము పోలీసు లేదా ప్రభుత్వ అధికారి అని చెప్పుకున్నారు.",
+              "urgency": "వారు బెదిరించి తొందరపెట్టారు.", "secrecy": "ఎవరికీ చెప్పవద్దని అన్నారు.", "money": "వారు డబ్బు అడిగారు.",
+              "remote_access": "ఒక యాప్ డౌన్‌లోడ్ చేయమని అన్నారు.", "family_emergency": "కుటుంబంలో అత్యవసర పరిస్థితి ఉందని చెప్పారు.",
+              "unverified": "వారు తాము కుటుంబ సభ్యులమని చెప్పుకున్నారు.",
+              "action_red": "నేను కాల్‌ను మర్యాదగా ముగించాను. నాన్నగారికి కనెక్ట్ చేయలేదు, ఏ సమాచారమూ ఇవ్వలేదు.",
+              "action_yellow": "నేను సందేశం తీసుకున్నాను. దయచేసి ఒకసారి చూడండి.",
+              "action_family": "దయచేసి మీ దగ్గర ఇప్పటికే ఉన్న నంబర్‌కు కాల్ చేసి తనిఖీ చేయండి.",
+              "action_green": "నేను వారి సందేశం తీసుకున్నాను, నాన్నగారికి చదివి వినిపించగలను."},
+    "mr-IN": {"intro_red": "एका अनोळखी नंबरवरून एक संशयास्पद कॉल आला होता.", "intro_yellow": "एका अनोळखी नंबरवरून कॉल आला होता, त्याची एकदा तपासणी करायला हवी.",
+              "intro_green": "एका अनोळखी नंबरवरून कॉल आला होता, तो सुरक्षित वाटला.",
+              "spoke": "कॉल करणारे {lang} मध्ये बोलत होते, म्हणून मीही {lang} मध्ये उत्तर दिले.",
+              "credentials": "त्यांनी ओटीपी किंवा बँकेची माहिती मागितली.", "authority": "त्यांनी स्वतःला पोलीस किंवा सरकारी अधिकारी सांगितले.",
+              "urgency": "त्यांनी धमकी दिली आणि घाई केली.", "secrecy": "त्यांनी कोणालाही न सांगायला सांगितले.", "money": "त्यांनी पैसे मागितले.",
+              "remote_access": "त्यांनी एक ॲप डाउनलोड करायला सांगितले.", "family_emergency": "त्यांनी कुटुंबात काहीतरी आणीबाणी असल्याचे सांगितले.",
+              "unverified": "त्यांनी स्वतःला कुटुंबातील असल्याचे सांगितले.",
+              "action_red": "मी कॉल नम्रपणे संपवला. बाबांशी बोलणे करून दिले नाही आणि कोणतीही माहिती दिली नाही.",
+              "action_yellow": "मी संदेश घेतला आहे. कृपया एकदा पाहून घ्या.",
+              "action_family": "कृपया तुमच्याकडे आधीपासून असलेल्या नंबरवर फोन करून खात्री करा.",
+              "action_green": "मी त्यांचा संदेश घेतला आहे, आणि बाबांना वाचून दाखवू शकते."},
+    "bn-IN": {"intro_red": "একটি অচেনা নম্বর থেকে একটি সন্দেহজনক কল এসেছিল।", "intro_yellow": "একটি অচেনা নম্বর থেকে কল এসেছিল, একবার যাচাই করা দরকার।",
+              "intro_green": "একটি অচেনা নম্বর থেকে কল এসেছিল, সেটি নিরাপদ মনে হয়েছে।",
+              "spoke": "যিনি ফোন করেছিলেন তিনি {lang}-তে কথা বলছিলেন, তাই আমিও {lang}-তে উত্তর দিয়েছি।",
+              "credentials": "তিনি ওটিপি বা ব্যাংকের তথ্য চেয়েছিলেন।", "authority": "তিনি নিজেকে পুলিশ বা সরকারি অফিসার বলে দাবি করেছিলেন।",
+              "urgency": "তিনি ভয় দেখিয়ে তাড়াহুড়ো করছিলেন।", "secrecy": "তিনি কাউকে না জানাতে বলেছিলেন।", "money": "তিনি টাকা চেয়েছিলেন।",
+              "remote_access": "তিনি একটি অ্যাপ ডাউনলোড করতে বলেছিলেন।", "family_emergency": "তিনি পরিবারে জরুরি অবস্থার কথা বলেছিলেন।",
+              "unverified": "তিনি নিজেকে পরিবারের লোক বলে দাবি করেছিলেন।",
+              "action_red": "আমি ভদ্রভাবে কলটি শেষ করেছি। বাবার সঙ্গে কথা বলাইনি, কোনো তথ্যও দিইনি।",
+              "action_yellow": "আমি বার্তাটি নিয়ে রেখেছি। অনুগ্রহ করে একবার দেখে নিন।",
+              "action_family": "অনুগ্রহ করে আপনার কাছে আগে থেকে থাকা নম্বরে ফোন করে যাচাই করুন।",
+              "action_green": "আমি তাঁর বার্তা নিয়ে রেখেছি, বাবাকে পড়ে শোনাতে পারি।"},
+}
+
+_REASON_ORDER = ["authority", "credentials", "money", "urgency", "secrecy", "remote_access", "family_emergency"]
+
+
+def call_summary(risk: dict, caller_lang: str, family_lang: str) -> str:
+    """Gena's spoken summary of a finished call, in the family's language."""
+    fl = family_lang if family_lang in SUMMARY else DEFAULT
+    S = SUMMARY[fl]
+    verdict = risk.get("verdict", "green")
+    parts = [S.get("intro_" + verdict, S["intro_green"])]
+    if caller_lang and caller_lang != fl and caller_lang in LANG_LATIN:
+        parts.append(S["spoke"].format(lang=LANG_LATIN[caller_lang]))
+    if risk.get("verify_by_callback"):
+        parts.append(S["unverified"])
+    cats = [c for c in _REASON_ORDER if c in risk.get("categories", [])]
+    parts += [S[c] for c in cats[:4]]
+    if verdict == "red":
+        parts.append(S["action_red"])
+        if risk.get("verify_by_callback"):
+            parts.append(S["action_family"])
+    elif verdict == "yellow":
+        parts.append(S["action_family"] if risk.get("verify_by_callback") else S["action_yellow"])
+    else:
+        parts.append(S["action_green"])
+    return " ".join(parts)
