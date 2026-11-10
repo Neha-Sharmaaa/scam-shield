@@ -1,0 +1,39 @@
+/* Caller simulator styling, layered over style.css and driven by theme.css tokens */
+body.dark-call {
+  --brand: var(--accent2); --brand-ink: var(--on-accent);
+  --blue-bg: rgba(var(--blue-rgb),.12); --red-bg: rgba(var(--red-rgb),.12);
+  --amber-bg: rgba(var(--amber-rgb),.12); --green-bg: rgba(var(--green-rgb),.12);
+  font-family: var(--font-body);
+  background: radial-gradient(circle at 75% -10%, rgba(var(--accent-rgb),.22), transparent 45%), radial-gradient(circle at 10% 110%, rgba(var(--teal-rgb),.12), transparent 45%), var(--bg);
+  min-height: 100vh; color: var(--ink);
+}
+body.dark-call header.top { background: rgba(var(--bg-rgb),.72); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); color: var(--ink); }
+body.dark-call .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 19px; text-decoration: none; margin: 0; color: var(--ink); }
+body.dark-call .brand .mark { width: 32px; height: 32px; border-radius: 9px; display: grid; place-items: center; background: var(--grad); font-size: 16px; }
+body.dark-call header.top .sub { color: var(--muted); }
+body.dark-call header.top .dash { color: var(--accent2); }
+body.dark-call .phone { max-width: 440px; margin-top: 10px; }
+body.dark-call .panel { background: var(--card-bg); border: 1px solid var(--line2); border-radius: 36px; padding: 26px 22px; box-shadow: 0 30px 70px var(--shadow); }
+body.dark-call .panel.behind { border-radius: 18px; background: rgba(var(--fg-rgb),.03); box-shadow: none; border-style: dashed; }
+body.dark-call h2 { text-align: center; font-size: 24px; }
+body.dark-call label { color: var(--muted); }
+body.dark-call input, body.dark-call select, body.dark-call textarea { background: rgba(var(--fg-rgb),.04); border-color: var(--line2); color: var(--ink); }
+body.dark-call select option { background: var(--panel2); color: var(--ink); }
+body.dark-call button, body.dark-call .btn { background: var(--grad); border-color: transparent; color: var(--on-accent); }
+body.dark-call button.ghost { background: rgba(var(--fg-rgb),.06); color: var(--ink); border-color: var(--line2); }
+body.dark-call .callbtn { background: #16a34a; color: #fff; font-size: 19px; padding: 16px 34px; box-shadow: 0 10px 30px rgba(22,163,74,.35); animation: ring 1.6s infinite; }
+@keyframes ring { 0%,100% { transform: rotate(0); } 10% { transform: rotate(-4deg); } 20% { transform: rotate(4deg); } 30% { transform: rotate(0); } }
+body.dark-call .callhead .num { font-size: 30px; }
+body.dark-call .callhead .muted { color: var(--green); }
+body.dark-call .muted { color: var(--muted); }
+body.dark-call .bubble.agent { background: rgba(var(--blue-rgb),.10); border: 1px solid rgba(var(--blue-rgb),.22); }
+body.dark-call .bubble.caller { background: rgba(var(--fg-rgb),.05); border-color: var(--line); }
+body.dark-call .bubble .who, body.dark-call .bubble .dev { color: var(--muted); }
+body.dark-call .mic { background: rgba(var(--fg-rgb),.06); border: 2px solid var(--line2); color: var(--ink); box-shadow: 0 10px 30px var(--shadow); }
+body.dark-call .mic:not(:disabled):hover { background: rgba(var(--accent-rgb),.16); border-color: var(--accent); }
+body.dark-call .mic.rec { background: var(--red); border-color: var(--red); color: #fff; }
+body.dark-call details summary { color: var(--accent2); }
+body.dark-call a { color: var(--accent2); }
+body.dark-call .pill.red { color: var(--red-ink); }
+html[data-theme] body.dark-call .brand { font-family: var(--font-display); font-weight: 400; font-size: 22px; }
+@media (prefers-reduced-motion: reduce) { body.dark-call .callbtn { animation: none; } }

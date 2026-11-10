@@ -1,0 +1,102 @@
+{
+  "cbi|clean_8k|codemix": {
+    "spoken": "Main CBI se bol raha hoon, aapke naam pe case hai, OTP batao.",
+    "transcript": "BI से बोल रहा हूँ। आपके नाम पे case है, OTP बताओ।",
+    "lang": "hi-IN"
+  },
+  "cbi|noisy_8k|codemix": {
+    "spoken": "Main CBI se bol raha hoon, aapke naam pe case hai, OTP batao.",
+    "transcript": "मैं CBI से बोल रहा हूँ, आपके नाम पर case है, OTP बताओ।",
+    "lang": "hi-IN"
+  },
+  "relative|clean_8k|codemix": {
+    "spoken": "Aunty, Rohit ka accident ho gaya, turant paise bhejo.",
+    "transcript": "आंटी, रोहित का accident हो गया, तुरंत पैसे भेजो।",
+    "lang": "hi-IN"
+  },
+  "relative|noisy_8k|codemix": {
+    "spoken": "Aunty, Rohit ka accident ho gaya, turant paise bhejo.",
+    "transcript": "आंटी, रोहित का accident हो गया, तुरंत पैसे भेजो।",
+    "lang": "hi-IN"
+  },
+  "delivery|clean_8k|codemix": {
+    "spoken": "Amazon delivery hai, kal aaunga, ghar pe koi hoga?",
+    "transcript": "Amazon delivery है, कल आऊँगा। घर पे कोई होगा?",
+    "lang": "hi-IN"
+  },
+  "delivery|noisy_8k|codemix": {
+    "spoken": "Amazon delivery hai, kal aaunga, ghar pe koi hoga?",
+    "transcript": "Amazon delivery है, कल आऊँगा। घर पे कोई होगा?",
+    "lang": "hi-IN"
+  },
+  "bijli|clean_8k|codemix": {
+    "spoken": "Bijli vibhag se bol raha hoon, aaj raat light kat jayegi.",
+    "transcript": "बिजली विभाग से बोल रहा हूँ, आज रात light cut जाएगी।",
+    "lang": "hi-IN"
+  },
+  "bijli|noisy_8k|codemix": {
+    "spoken": "Bijli vibhag se bol raha hoon, aaj raat light kat jayegi.",
+    "transcript": "बिजली विभाग से बोल रहा हूँ, आज रात light cut जाएगी।",
+    "lang": "hi-IN"
+  },
+  "codeword|clean_8k|codemix": {
+    "spoken": "Code word hai gulmohar.",
+    "transcript": "code word है गुलमोहर।",
+    "lang": "hi-IN"
+  },
+  "codeword|noisy_8k|codemix": {
+    "spoken": "Code word hai gulmohar.",
+    "transcript": "Good word है गुलमोहा।",
+    "lang": "hi-IN"
+  },
+  "cbi|clean_8k|transliterate": {
+    "spoken": "Main CBI se bol raha hoon, aapke naam pe case hai, OTP batao.",
+    "transcript": "BI se bol raha hoon. aapke naam pe case hai, OTP batao.",
+    "lang": null
+  },
+  "cbi|noisy_8k|transliterate": {
+    "spoken": "Main CBI se bol raha hoon, aapke naam pe case hai, OTP batao.",
+    "transcript": "Main CBI se bol raha hoon. Aapke naam pe case hai, OTP batao.",
+    "lang": null
+  },
+  "relative|clean_8k|transliterate": {
+    "spoken": "Aunty, Rohit ka accident ho gaya, turant paise bhejo.",
+    "transcript": "Aunty, Rohit ka accident ho gaya, turgant paise bhej do.",
+    "lang": null
+  },
+  "relative|noisy_8k|transliterate": {
+    "spoken": "Aunty, Rohit ka accident ho gaya, turant paise bhejo.",
+    "transcript": "Aunty, Rohit ka accident ho gaya, turant paise bhej do.",
+    "lang": null
+  },
+  "delivery|clean_8k|transliterate": {
+    "spoken": "Amazon delivery hai, kal aaunga, ghar pe koi hoga?",
+    "transcript": "Amazon delivery hai. Kal aaunga. Ghar pe koi hoga?",
+    "lang": null
+  },
+  "delivery|noisy_8k|transliterate": {
+    "spoken": "Amazon delivery hai, kal aaunga, ghar pe koi hoga?",
+    "transcript": "Amazon delivery hai. Kal aaunga, ghar pe koi hoga?",
+    "lang": null
+  },
+  "bijli|clean_8k|transliterate": {
+    "spoken": "Bijli vibhag se bol raha hoon, aaj raat light kat jayegi.",
+    "transcript": "Bijli vibhag se bol raha hoon, aaj raat light kat jayegi.",
+    "lang": null
+  },
+  "bijli|noisy_8k|transliterate": {
+    "spoken": "Bijli vibhag se bol raha hoon, aaj raat light kat jayegi.",
+    "transcript": "Bijli vibhag se bol raha hoon, aaj raat light kat jayegi.",
+    "lang": null
+  },
+  "codeword|clean_8k|transliterate": {
+    "spoken": "Code word hai gulmohar.",
+    "transcript": "Code word hai Gulmohar.",
+    "lang": null
+  },
+  "codeword|noisy_8k|transliterate": {
+    "spoken": "Code word hai gulmohar.",
+    "transcript": "Good word hai Gulmohar.",
+    "lang": null
+  }
+}

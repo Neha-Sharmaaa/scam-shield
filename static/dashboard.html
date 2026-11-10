@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scam Shield Family</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;600&family=Noto+Sans+Kannada:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #070b16; --panel: rgba(var(--fg-rgb),.035); --panel2: #0e1528; --line: rgba(var(--fg-rgb),.08); --line2: rgba(var(--fg-rgb),.14);
+  --ink: #eef2fb; --muted: #94a0b8; --faint: #6b7690;
+  --accent: #ff7a45; --accent2: #ffb347; --teal: #2ee6a6;
+  --red: #ff5a5f; --amber: #ffc24b; --green: #36d98a; --blue: #7fb2ff;
+}
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--ink); font: 16px/1.55 "Plus Jakarta Sans", "Noto Sans Devanagari", "Noto Sans Kannada", system-ui, sans-serif; min-height: 100vh;
+  background: radial-gradient(1000px 600px at 85% -10%, rgba(var(--accent-rgb),.16), transparent 60%), radial-gradient(800px 500px at -10% 110%, rgba(var(--teal-rgb),.08), transparent 60%), var(--bg); }
+a { color: var(--accent2); }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 0 22px 70px; }
+
+.top { position: sticky; top: 0; z-index: 5; background: rgba(var(--bg-rgb),.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+.top .in { max-width: 1240px; margin: 0 auto; padding: 14px 22px; display: flex; align-items: center; gap: 16px; }
+.logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 19px; text-decoration: none; color: var(--ink); white-space: nowrap; }
+.logo .mark { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: var(--grad); font-size: 17px; box-shadow: 0 6px 20px rgba(var(--accent-rgb),.3); }
+.guard { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--muted); border: 1px solid var(--line); background: var(--panel); padding: 6px 12px; border-radius: 999px; }
+.guard b { color: var(--ink); font-weight: 600; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 0 rgba(var(--teal-rgb),.6); animation: ping 1.8s infinite; flex: none; }
+.dot.off { background: var(--faint); animation: none; }
+@keyframes ping { 70% { box-shadow: 0 0 0 9px rgba(var(--teal-rgb),0); } 100% { box-shadow: 0 0 0 0 rgba(var(--teal-rgb),0); } }
+.top .actions { margin-left: auto; display: flex; gap: 10px; }
+.btn { font: inherit; font-weight: 700; font-size: 14px; display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px; text-decoration: none; cursor: pointer; border: 1px solid transparent; transition: transform .15s, background .15s, border-color .15s; white-space: nowrap; }
+.btn:hover { transform: translateY(-1px); }
+.btn:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+.btn.primary { background: var(--grad); color: var(--on-accent); box-shadow: 0 8px 24px rgba(var(--accent-rgb),.28); }
+.btn.ghost { background: var(--panel); border-color: var(--line2); color: var(--ink); }
+.btn.ghost:hover { border-color: rgba(var(--accent2-rgb),.5); }
+@media (max-width: 700px) { .guard { display: none; } .top .actions .hide-sm { display: none; } }
+
+.head { padding: 34px 0 20px; }
+.head h1 { margin: 0; font-size: clamp(28px, 3.4vw, 40px); letter-spacing: -1px; line-height: 1.1; font-weight: 800; }
+.head h1 span { background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.head p { margin: 6px 0 0; color: var(--muted); }
+
+.alert { display: none; align-items: center; gap: 16px; margin-bottom: 20px; padding: 16px 20px; border-radius: 18px;
+  background: linear-gradient(120deg, rgba(var(--red-rgb),.22), rgba(var(--red-rgb),.06)); border: 1px solid rgba(var(--red-rgb),.45); box-shadow: 0 16px 40px rgba(var(--red-rgb),.12); animation: drop .4s ease-out; }
+@keyframes drop { from { opacity: 0; transform: translateY(-8px); } }
+.alert .ic { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: rgba(var(--red-rgb),.2); font-size: 22px; flex: none; }
+.alert .t { font-weight: 800; color: var(--red-ink); font-size: 17px; }
+.alert .d { color: var(--ink); font-size: 15px; }
+.alert .x { margin-left: auto; background: none; border: none; color: var(--muted); font-size: 22px; cursor: pointer; }
+
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 26px; }
+@media (max-width: 860px) { .stats { grid-template-columns: 1fr 1fr; } }
+.stat { position: relative; overflow: hidden; border-radius: 18px; padding: 16px 18px; background: var(--panel); border: 1px solid var(--line); }
+.stat::after { content: ""; position: absolute; right: -30px; top: -30px; width: 110px; height: 110px; border-radius: 50%; filter: blur(28px); opacity: .28; background: var(--c); }
+.stat .k { font-size: 12px; font-weight: 700; letter-spacing: .7px; text-transform: uppercase; color: var(--muted); }
+.stat .v { font-size: 34px; font-weight: 800; letter-spacing: -1px; line-height: 1.15; margin-top: 4px; color: var(--c); }
+.stat .s { font-size: 13px; color: var(--faint); }
+
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 24px; align-items: start; }
+@media (max-width: 980px) { .grid { grid-template-columns: 1fr; } }
+.bar { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+.bar h2 { margin: 0; font-size: 20px; letter-spacing: -.3px; }
+.tabs { margin-left: auto; display: flex; gap: 4px; padding: 4px; border-radius: 999px; background: var(--panel); border: 1px solid var(--line); flex-wrap: wrap; }
+.tabs button { font: inherit; font-size: 13.5px; font-weight: 600; color: var(--muted); background: none; border: none; padding: 6px 12px; border-radius: 999px; cursor: pointer; }
+.tabs button.on { background: rgba(var(--fg-rgb),.1); color: var(--ink); }
+
+.call { position: relative; border-radius: 20px; padding: 18px 20px 18px 24px; margin-bottom: 14px; background: var(--card-bg); border: 1px solid var(--line); overflow: hidden; box-shadow: 0 1px 2px var(--shadow); }
+.call::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--c, var(--faint)); }
+.call.red { --c: var(--red); border-color: rgba(var(--red-rgb),.3); } .call.yellow { --c: var(--amber); } .call.green { --c: var(--green); } .call.allow, .call.live { --c: var(--blue); }
+.call.fresh { animation: drop .5s ease-out; }
+.call .meta { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.pill { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; padding: 4px 11px; border-radius: 999px; border: 1px solid; white-space: nowrap; }
+.pill.red { color: var(--red-ink); background: rgba(var(--red-rgb),.12); border-color: rgba(var(--red-rgb),.4); }
+.pill.yellow { color: var(--amber); background: rgba(var(--amber-rgb),.1); border-color: rgba(var(--amber-rgb),.35); }
+.pill.green { color: var(--green); background: rgba(var(--green-rgb),.1); border-color: rgba(var(--green-rgb),.35); }
+.pill.allow, .pill.live { color: var(--blue); background: rgba(var(--blue-rgb),.1); border-color: rgba(var(--blue-rgb),.35); }
+.pill.live::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--blue); animation: blink 1s infinite; }
+@keyframes blink { 50% { opacity: .2; } }
+.call .num { font-weight: 700; font-size: 18px; letter-spacing: .2px; }
+.call .when { margin-left: auto; color: var(--faint); font-size: 13px; white-space: nowrap; }
+.call .reasons { font-weight: 700; font-size: 17px; margin: 10px 0 4px; letter-spacing: -.2px; }
+.call .reasons.none { color: var(--muted); font-weight: 600; font-size: 15px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; align-items: center; }
+.chips .l { font-size: 12px; color: var(--faint); text-transform: uppercase; letter-spacing: .6px; font-weight: 700; margin-right: 2px; }
+.chip { font-size: 13px; padding: 2px 9px; border-radius: 8px; background: rgba(var(--fg-rgb),.06); border: 1px solid var(--line); color: var(--ink2); }
+.call.red .chip { background: rgba(var(--red-rgb),.08); border-color: rgba(var(--red-rgb),.22); color: var(--red-ink2); }
+.note { display: flex; gap: 8px; align-items: center; font-size: 14px; color: var(--muted); margin-top: 8px; }
+.cw { display: inline-flex; gap: 6px; align-items: center; font-size: 13.5px; font-weight: 600; margin-top: 8px; padding: 3px 10px; border-radius: 8px; }
+.cw.ok { color: var(--green); background: rgba(var(--green-rgb),.08); } .cw.bad { color: var(--red-ink); background: rgba(var(--red-rgb),.1); }
+.cw.warn { color: var(--amber); background: rgba(var(--amber-rgb),.1); }
+.verify { margin-top: 10px; padding: 12px 14px; border-radius: 14px; background: rgba(var(--accent2-rgb),.08); border: 1px solid rgba(var(--accent2-rgb),.28); font-size: 14.5px; }
+.verify b { color: var(--ink); } .verify .acts { margin-top: 10px; }
+label.toggle { display: flex; align-items: center; gap: 10px; text-transform: none; letter-spacing: 0; font-size: 14.5px; color: var(--ink); font-weight: 600; margin-top: 18px; cursor: pointer; }
+label.toggle input { width: 18px; height: 18px; flex: none; accent-color: var(--accent2); }
+label.toggle em { color: var(--faint); font-weight: 500; font-style: normal; }
+#codeBox { margin-top: 8px; }
+
+details { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 10px; }
+summary { cursor: pointer; font-weight: 600; font-size: 14px; color: var(--accent2); list-style: none; display: inline-flex; align-items: center; gap: 6px; }
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "▸"; transition: transform .2s; display: inline-block; }
+details[open] summary::before { transform: rotate(90deg); }
+.chat { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+.b { max-width: 82%; padding: 8px 12px; border-radius: 14px; font-size: 14.5px; }
+.b .w { font-size: 10.5px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: var(--faint); margin-bottom: 1px; }
+.b.q { align-self: flex-start; background: rgba(var(--blue-rgb),.1); border: 1px solid rgba(var(--blue-rgb),.18); border-bottom-left-radius: 4px; color: var(--blue-ink); }
+.b.a { align-self: flex-end; background: rgba(var(--fg-rgb),.06); border: 1px solid var(--line); border-bottom-right-radius: 4px; }
+.b .m { font-size: 11.5px; color: var(--faint); margin-top: 3px; }
+
+.acts { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 14px; }
+.langsel { width: auto; padding: 7px 12px; border-radius: 999px; font-size: 14px; font-weight: 600; }
+.lang { display: inline-flex; gap: 6px; align-items: center; font-size: 13px; font-weight: 600; color: var(--muted); margin-top: 8px; padding: 3px 10px; border-radius: 8px; background: rgba(var(--accent2-rgb),.08); }
+.seg { display: inline-flex; padding: 3px; border-radius: 999px; background: var(--panel); border: 1px solid var(--line); }
+.seg button { font: inherit; font-size: 13px; font-weight: 600; padding: 5px 11px; border-radius: 999px; border: none; background: none; color: var(--muted); cursor: pointer; }
+.seg button.on { background: rgba(var(--fg-rgb),.1); color: var(--ink); }
+.caption { flex-basis: 100%; font-size: 14.5px; color: var(--ink); padding: 10px 12px; border-radius: 12px; background: rgba(var(--green-rgb),.06); border: 1px solid rgba(var(--green-rgb),.2); display: none; }
+.caption.on { display: block; }
+.eq { display: inline-flex; gap: 2px; align-items: flex-end; height: 14px; margin-right: 6px; vertical-align: -2px; }
+.eq i { width: 3px; background: var(--green); border-radius: 2px; animation: eq .8s infinite ease-in-out; }
+.eq i:nth-child(2) { animation-delay: .2s; } .eq i:nth-child(3) { animation-delay: .4s; }
+@keyframes eq { 0%,100% { height: 4px; } 50% { height: 14px; } }
+
+.empty { text-align: center; padding: 56px 20px; border-radius: 20px; border: 1px dashed var(--line2); color: var(--muted); }
+.empty .ic { font-size: 40px; }
+.empty h3 { color: var(--ink); margin: 8px 0 4px; }
+
+.card { border-radius: 20px; padding: 20px; background: var(--panel); border: 1px solid var(--line); margin-bottom: 18px; }
+.card h3 { margin: 0 0 4px; font-size: 17px; }
+.card .sub { color: var(--muted); font-size: 13.5px; margin: 0 0 12px; }
+label { display: block; font-size: 12.5px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; color: var(--muted); margin: 14px 0 6px; }
+input, select, textarea { font: inherit; font-size: 15px; width: 100%; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line2); background: rgba(var(--fg-rgb),.04); color: var(--ink); outline: none; transition: border-color .15s, box-shadow .15s; }
+input:focus, select:focus, textarea:focus { border-color: rgba(var(--accent2-rgb),.6); box-shadow: 0 0 0 3px rgba(var(--accent2-rgb),.12); }
+select option { background: var(--panel2); }
+.pw { position: relative; } .pw input { padding-right: 42px; }
+.pw button { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--muted); cursor: pointer; font-size: 16px; padding: 6px; }
+.hint { font-size: 12.5px; color: var(--faint); margin-top: 5px; }
+.save { display: flex; align-items: center; gap: 12px; margin-top: 18px; }
+.saved { font-size: 13.5px; color: var(--green); }
+.help a { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 14px; border: 1px solid var(--line); text-decoration: none; color: var(--ink); margin-top: 8px; transition: border-color .15s, background .15s; }
+.help a:hover { border-color: rgba(var(--accent2-rgb),.45); background: rgba(var(--accent2-rgb),.05); }
+.help .ic { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; background: rgba(var(--fg-rgb),.06); font-size: 18px; flex: none; }
+.help b { display: block; font-size: 15px; } .help span { font-size: 13px; color: var(--muted); }
+.fine { font-size: 13px; color: var(--faint); line-height: 1.5; }
+.linkbtn { background: none; border: none; color: var(--faint); font: inherit; font-size: 13px; cursor: pointer; text-decoration: underline; padding: 0; margin-top: 4px; }
+
+.toast { position: fixed; right: 22px; bottom: 22px; width: 360px; max-width: calc(100vw - 32px); z-index: 20; border-radius: 18px; overflow: hidden;
+  background: #0b141a; border: 1px solid rgba(37,211,102,.3); box-shadow: 0 24px 60px rgba(0,0,0,.55); transform: translateY(140%); transition: transform .45s cubic-bezier(.2,.9,.3,1.2); }
+.toast.on { transform: none; }
+.toast .h { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: #1f2c34; font-size: 13px; }
+.toast .h .av { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--grad); font-size: 14px; }
+.toast .h b { color: #e9edef; } .toast .h span { color: #8696a0; margin-left: auto; font-size: 11.5px; }
+.toast .m { margin: 12px 14px 14px; padding: 10px 12px; border-radius: 0 12px 12px 12px; background: #202c33; color: #e9edef; font-size: 14.5px; line-height: 1.45; }
+.toast .m small { display: block; text-align: right; color: #8696a0; font-size: 11px; margin-top: 4px; }
+@media (max-width: 520px) { .wrap { padding: 0 16px 60px; } .top .in { padding: 12px 16px; } .call .when { margin-left: 0; } .toast { right: 16px; left: 16px; width: auto; } .tabs { margin-left: 0; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+html[data-theme] .logo { font-family: var(--font-display); font-weight: 400; font-size: 22px; }
+/* compact embed mode (used by the demo-video stage): only the live call log */
+html.embed .head, html.embed .stats, html.embed aside, html.embed .top .actions, html.embed .bar .tabs { display: none; }
+html.embed .grid { grid-template-columns: 1fr; } html.embed .wrap { padding-top: 14px; }
+</style>
+<script src="/static/characters.js"></script>
+<link rel="stylesheet" href="/static/theme.css">
+<script src="/static/theme.js"></script>
+</head>
+<body>
+<div class="top"><div class="in">
+  <a class="logo" href="/"><span class="mark">🛡️</span> Scam Shield</a>
+  <span class="guard"><span class="gena-av" id="genaMini" style="width:24px;height:29px"></span><span class="dot" id="liveDot"></span> Gena is guarding calls for <b id="hdrParent">Papa</b></span>
+  <div class="actions">
+    <a class="btn ghost hide-sm" href="/">Home</a>
+    <a class="btn primary" href="/caller" target="_blank">📞 Test a call</a>
+  </div>
+</div></div>
+
+<div class="wrap">
+  <div class="head">
+    <h1>Family <span>dashboard</span></h1>
+    <p>Every unknown call to <b id="hdrParent2">Papa</b> is answered and screened by <b>Gena</b> first. Here's what happened.</p>
+  </div>
+
+  <div class="alert" id="alert" role="alert">
+    <div class="ic">🚨</div>
+    <div><div class="t" id="alertT"></div><div class="d" id="alertD"></div></div>
+    <button class="x" id="alertX" aria-label="Dismiss">×</button>
+  </div>
+
+  <div class="stats">
+    <div class="stat" style="--c: var(--ink)"><div class="k">Calls screened</div><div class="v" id="stTotal">0</div><div class="s">unknown numbers</div></div>
+    <div class="stat" style="--c: var(--red)"><div class="k">Scams stopped</div><div class="v" id="stRed">0</div><div class="s">ended, Papa never connected</div></div>
+    <div class="stat" style="--c: var(--amber)"><div class="k">Needs a look</div><div class="v" id="stYellow">0</div><div class="s">family to call back</div></div>
+    <div class="stat" style="--c: var(--green)"><div class="k">Safe messages</div><div class="v" id="stGreen">0</div><div class="s">ready to relay</div></div>
+  </div>
+
+  <div class="grid">
+    <section>
+      <div class="bar">
+        <h2>Call log</h2>
+        <div class="tabs" id="tabs">
+          <button data-f="all" class="on">All</button><button data-f="red">🔴 Stopped</button><button data-f="yellow">🟡 Unclear</button><button data-f="green">🟢 Safe</button>
+        </div>
+      </div>
+      <div id="calls"></div>
+    </section>
+
+    <aside>
+      <div class="card">
+        <h3>⚙️ Gena's settings</h3>
+        <p class="sub">How Gena screens Papa's calls. Only the family sees these.</p>
+        <label for="sName">Parent's name</label>
+        <input id="sName">
+        <div class="hint">Used in Gena's greeting.</div>
+        <label for="sLang">Family's language</label>
+        <select id="sLang"><option value="hi-IN">हिन्दी Hindi</option><option value="en-IN">English</option><option value="kn-IN">ಕನ್ನಡ Kannada</option><option value="ta-IN">தமிழ் Tamil</option><option value="te-IN">తెలుగు Telugu</option><option value="mr-IN">मराठी Marathi</option><option value="bn-IN">বাংলা Bengali</option></select>
+        <div class="hint">Messages are read to Papa in this language.</div>
+        <label for="sGreet">Gena greets callers in</label>
+        <select id="sGreet"><option value="hi-IN">हिन्दी Hindi</option><option value="en-IN">English</option><option value="kn-IN">ಕನ್ನಡ Kannada</option><option value="ta-IN">தமிழ் Tamil</option><option value="te-IN">తెలుగు Telugu</option><option value="mr-IN">मराठी Marathi</option><option value="bn-IN">বাংলা Bengali</option></select>
+        <div class="hint">After the caller's first answer, Gena switches to whatever language they speak.</div>
+        <label for="sAllow">Saved contacts</label>
+        <textarea id="sAllow" rows="3" placeholder="Rohit: +91 00000 20002"></textarea>
+        <div class="hint">One per line, as <b>Name: number</b>. These ring straight through; Gena never answers them.</div>
+        <label for="sFam">Other family names</label>
+        <input id="sFam" placeholder="Priya, Meena">
+        <div class="hint">If an unknown caller claims to be one of these (or a saved contact), you're asked to verify by calling back on the number you already have.</div>
+        <label class="toggle"><input type="checkbox" id="sCodeOn"> <span>Also ask a family code word <em>(optional)</em></span></label>
+        <div id="codeBox" style="display:none">
+          <div class="pw"><input id="sCode" type="password" autocomplete="off" aria-label="Family code word"><button type="button" id="eye" aria-label="Show code word">👁️</button></div>
+          <div class="hint">Only useful if your inner circle actually knows it. Gena never says it.</div>
+        </div>
+        <div class="save"><button class="btn primary" id="saveBtn">Save changes</button><span class="saved" id="saved"></span></div>
+      </div>
+
+      <div class="card help">
+        <h3>🆘 If a scam got through</h3>
+        <a href="tel:1930"><span class="ic">📞</span><div><b>Call 1930</b><span>National cyber-fraud helpline</span></div></a>
+        <a href="https://cybercrime.gov.in/" target="_blank" rel="noopener"><span class="ic">🏛️</span><div><b>cybercrime.gov.in</b><span>Report online</span></div></a>
+        <a href="https://sancharsaathi.gov.in/sfc/" target="_blank" rel="noopener"><span class="ic">👁️</span><div><b>Chakshu · Sanchar Saathi</b><span>Report a suspected fraud call</span></div></a>
+      </div>
+
+      <p class="fine">Scam Shield <b>flags suspicious calls</b>; it doesn't claim to stop every scam. When it's wrong, a genuine caller just leaves a message. Demo data is synthetic.</p>
+      <button class="linkbtn" id="clearBtn">Clear demo call log</button>
+    </aside>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status">
+  <div class="h"><span class="av">🛡️</span><b>Gena · Scam Shield</b><span>WhatsApp · mock, nothing sent</span></div>
+  <div class="m"><span id="toastBody"></span><small id="toastTime"></small></div>
+</div>
+
+<script>
+if (new URLSearchParams(location.search).has('embed')) document.documentElement.classList.add('embed');
+const $ = id => document.getElementById(id);
+const LANGS = {'hi-IN': 'हिन्दी', 'en-IN': 'English', 'kn-IN': 'ಕನ್ನಡ', 'ta-IN': 'தமிழ்', 'te-IN': 'తెలుగు', 'mr-IN': 'मराठी', 'bn-IN': 'বাংলা'};
+const LANG_EN = {'hi-IN': 'Hindi', 'en-IN': 'English', 'kn-IN': 'Kannada', 'ta-IN': 'Tamil', 'te-IN': 'Telugu', 'mr-IN': 'Marathi', 'bn-IN': 'Bengali'};
+const LABEL = {red: '🔴 High risk', yellow: '🟡 Unclear', green: '🟢 Low risk', allow: '📒 Saved contact', live: 'Screening now'};
+let seen = null, settings = null, lastJson = '', filter = 'all', calls = [];
+const fresh = new Set();
+const langPick = {};   // per-call language choice survives re-renders
+const captions = {};   // per-call caption survives re-renders
+const player = new Audio();
+
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+function ago(t) {
+  const s = Math.max(0, Date.now() / 1000 - t);
+  if (s < 50) return 'just now';
+  if (s < 3600) return Math.round(s / 60) + ' min ago';
+  return new Date(t * 1000).toLocaleString([], {hour: '2-digit', minute: '2-digit', day: 'numeric', month: 'short'});
+}
+const visible = () => calls.filter(c => filter === 'all' || (c.status === 'ended' && c.risk.verdict === filter));
+
+function stats() {
+  const screened = calls.filter(c => !c.allow_listed);
+  const ended = screened.filter(c => c.status === 'ended');
+  $('stTotal').textContent = screened.length;
+  $('stRed').textContent = ended.filter(c => c.risk.verdict === 'red').length;
+  $('stYellow').textContent = ended.filter(c => c.risk.verdict === 'yellow').length;
+  $('stGreen').textContent = ended.filter(c => c.risk.verdict === 'green').length;
+}
+
+function contacts() {
+  return (settings?.allow_list || []).map(l => { const i = l.indexOf(':'); return i > 0 ? {name: l.slice(0, i).trim(), num: l.slice(i + 1).trim()} : null; }).filter(Boolean);
+}
+function verifyBox(c) {
+  const claimed = (c.risk.family_claim || []).map(x => x.toLowerCase());
+  const match = contacts().filter(k => claimed.includes(k.name.toLowerCase()));
+  const btns = match.map(k => `<a class="btn ghost" href="tel:${esc(k.num.replace(/[^0-9+]/g, ''))}">📞 Call ${esc(k.name)} on saved number</a>`).join('');
+  const who = (c.risk.family_claim || []).map(esc).join(', ');
+  return `<div class="verify">🔁 <b>Says they're family</b> (heard: ${who}). Don't trust the number this call came from.
+    <b>Call back on a number you already have</b> to check.${btns ? `<div class="acts">${btns}</div>` : ''}</div>`;
+}
+
+function card(c) {
+  const r = c.risk || {};
+  const live = c.status === 'screening';
+  const v = live ? 'live' : r.verdict;
+  const reasons = (r.reasons || []).join(' + ');
+  const chips = [...new Set(Object.values(r.matches || {}).flat().map(p => p.replace(/\*/g, '…')))].map(p => `<span class="chip">${esc(p)}</span>`).join('');
+  const chat = (c.turns || []).map(t => `
+      <div class="b q"><div class="w">Gena</div>${esc(t.question)}</div>
+      <div class="b a"><div class="w">Caller</div>${esc(t.step === 'codeword' ? '•••••• (code word hidden)' : t.transcript)}
+        ${t.source === 'prisma' ? `<div class="m">Gnani Prisma · 8 kHz${t.detected_language ? ' · ' + esc(t.detected_language) : ''}</div>` : ''}</div>`).join('');
+  const cw = {correct: '<span class="cw ok">✓ Code word correct</span>', wrong: '<span class="cw bad">✕ Wrong code word</span>', missing: '<span class="cw warn">… Code word not given</span>'}[c.code_word_status] || '';
+  let headline;
+  if (live) headline = '<div class="reasons none">Gena is talking to this caller right now…</div>';
+  else if (c.allow_listed) headline = '<div class="reasons none">Saved contact, rang straight through. Gena stayed out of it.</div>';
+  else headline = reasons ? `<div class="reasons">${esc(reasons)}</div>` : '<div class="reasons none">No risk signals. Gena took a message.</div>';
+  const lang = langPick[c.id] || settings?.parent_language || 'kn-IN';
+  const cap = captions[c.id];
+  const play = (!live && r.verdict === 'green') ? `<div class="acts">
+      <button class="btn primary" data-play="${c.id}">🔊 Play message for Papa</button>
+      <select class="langsel" data-langsel="${c.id}" aria-label="Language for Papa">${Object.entries(LANGS).map(([k, v]) => `<option value="${k}" ${k === lang ? 'selected' : ''}>${v}</option>`).join('')}</select>
+      <div class="caption ${cap ? 'on' : ''}" id="cap-${c.id}">${cap || ''}</div></div>` : '';
+  const report = (!live && r.verdict === 'red') ? `<div class="acts">
+      <a class="btn ghost" href="https://sancharsaathi.gov.in/sfc/" target="_blank" rel="noopener">Report on Chakshu ↗</a>
+      <a class="btn ghost" href="https://cybercrime.gov.in/" target="_blank" rel="noopener">cybercrime.gov.in ↗</a>
+      <a class="btn ghost" href="tel:1930">📞 1930</a></div>` : '';
+  return `<article class="call ${v} ${fresh.has(c.id) ? 'fresh' : ''}" data-id="${c.id}">
+    <div class="meta"><span class="pill ${v}">${LABEL[v] || v}</span><span class="num">${esc(c.number)}</span><span class="when">${ago(c.started_at)}</span></div>
+    ${headline}
+    ${chips ? `<div class="chips"><span class="l">Heard</span>${chips}</div>` : ''}
+    ${cw}
+    ${(c.caller_lang && !live) ? `<div class="lang">🗣 Caller spoke ${LANG_EN[c.caller_lang] || c.caller_lang} · Gena replied in ${LANG_EN[c.lang] || c.lang}</div>` : ''}
+    ${(!live && r.verdict === 'red') ? '<div class="note">🛡️ Gena ended the call politely. Nothing was shared and Papa was never connected.</div>' : ''}
+    ${(!live && r.verify_by_callback) ? verifyBox(c) : ''}
+    ${chat ? `<details data-id="${c.id}"><summary>Transcript · ${c.turns.length} answer${c.turns.length > 1 ? 's' : ''}</summary><div class="chat">${chat}</div></details>` : ''}
+    ${play}${report}
+  </article>`;
+}
+
+function render() {
+  stats();
+  if (!calls.length) {
+    $('calls').innerHTML = `<div class="empty"><div class="ic">🛡️</div><h3>All quiet</h3><div>Gena hasn't screened any calls yet. Place one from the <a href="/caller" target="_blank">call simulator</a> and watch it appear here live.</div></div>`;
+    return;
+  }
+  const list = visible();
+  if (!list.length) { $('calls').innerHTML = '<div class="empty">No calls in this view.</div>'; return; }
+  const prev = [...document.querySelectorAll('details[data-id]')];
+  const open = new Set(prev.filter(d => d.open).map(d => d.dataset.id));
+  const first = !prev.length;
+  $('calls').innerHTML = list.map(card).join('');
+  document.querySelectorAll('details[data-id]').forEach((d, i) => { if (open.has(d.dataset.id) || (first && i === 0) || fresh.has(d.dataset.id)) d.open = true; });
+  fresh.clear();
+}
+
+function alertFor(c) {
+  const reasons = (c.risk.reasons || []).join(' + ');
+  const who = settings?.parent_name || 'Papa';
+  $('alertT').textContent = `Gena stopped a suspicious call to ${who}`;
+  $('alertD').textContent = `${c.number}: ${reasons}`;
+  $('alert').style.display = 'flex';
+  $('toastBody').textContent = `🔴 I stopped a suspicious call to ${who} from ${c.number}. Reasons: ${reasons}. ${who} was not connected and nothing was shared.`;
+  $('toastTime').textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}) + ' ✓✓';
+  $('toast').classList.add('on');
+  clearTimeout(alertFor.t); alertFor.t = setTimeout(() => $('toast').classList.remove('on'), 9000);
+}
+$('alertX').onclick = () => { $('alert').style.display = 'none'; };
+
+async function poll() {
+  try {
+    const data = await fetch('/api/calls').then(r => r.json());
+    if (seen === null) seen = new Set(data.filter(c => c.status === 'ended').map(c => c.id));
+    const known = new Set(calls.map(c => c.id));
+    for (const c of data) {
+      if (lastJson && !known.has(c.id)) fresh.add(c.id);
+      if (c.status === 'ended' && !seen.has(c.id)) { seen.add(c.id); fresh.add(c.id); if (c.risk?.verdict === 'red') alertFor(c); }
+    }
+    const j = JSON.stringify(data);
+    if (j !== lastJson) { lastJson = j; calls = data; render(); }   // skip re-render when nothing changed
+    $('liveDot').classList.remove('off');
+  } catch (e) { $('liveDot').classList.add('off'); }
+}
+
+// event delegation (survives re-renders)
+$('calls').addEventListener('change', e => { const sel = e.target.closest('[data-langsel]'); if (sel) langPick[sel.dataset.langsel] = sel.value; });
+$('calls').addEventListener('click', e => {
+  const seg = e.target.closest('[data-seg] button');
+  if (seg) { const id = seg.parentElement.dataset.seg; langPick[id] = seg.dataset.l; seg.parentElement.querySelectorAll('button').forEach(b => b.classList.toggle('on', b === seg)); return; }
+  const pb = e.target.closest('[data-play]');
+  if (pb) playMsg(pb.dataset.play, pb);
+});
+$('tabs').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  filter = b.dataset.f; $('tabs').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); render();
+});
+
+function setCap(id, html) { captions[id] = html; const el = $('cap-' + id); if (el) { el.innerHTML = html; el.classList.toggle('on', !!html); } }
+
+async function playMsg(id, btn) {
+  const lang = langPick[id] || settings?.parent_language || 'kn-IN';
+  btn.disabled = true; setCap(id, 'Generating with Gnani Timbre…');
+  try {
+    const res = await fetch(`/api/calls/${id}/parent_message`, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({language: lang})});
+    if (!res.ok) throw new Error((await res.json()).detail);
+    const {clips} = await res.json();
+    for (const c of clips) {
+      setCap(id, `<span class="eq"><i></i><i></i><i></i></span>${esc(c.text)}`);
+      player.src = c.audio_url;
+      (window.__events = window.__events || []).push({t: Date.now(), kind: 'parent', url: c.audio_url});
+      await new Promise(r => { player.onended = r; player.onerror = r; player.play().catch(r); });
+    }
+    setCap(id, '✓ ' + esc(clips.map(c => c.text).join(' ')));
+  } catch (e) { setCap(id, '⚠️ ' + esc(e.message)); }
+  const b = document.querySelector(`[data-play="${id}"]`); if (b) b.disabled = false;
+}
+
+async function loadSettings() {
+  settings = await fetch('/api/settings').then(r => r.json());
+  $('sName').value = settings.parent_name; $('sLang').value = settings.parent_language; $('sGreet').value = settings.greeting_language || 'hi-IN';
+  $('sCode').value = settings.code_word; $('sFam').value = settings.family_names.join(', ');
+  $('sCodeOn').checked = !!settings.code_word_enabled; $('codeBox').style.display = settings.code_word_enabled ? 'block' : 'none';
+  $('sAllow').value = settings.allow_list.join('\n');
+  $('hdrParent').textContent = $('hdrParent2').textContent = settings.parent_name;
+}
+$('sCodeOn').onchange = () => { $('codeBox').style.display = $('sCodeOn').checked ? 'block' : 'none'; };
+$('eye').onclick = () => { const i = $('sCode'); i.type = i.type === 'password' ? 'text' : 'password'; };
+$('saveBtn').onclick = async () => {
+  const body = {parent_name: $('sName').value.trim(), parent_language: $('sLang').value, greeting_language: $('sGreet').value, code_word: $('sCode').value.trim(),
+    code_word_enabled: $('sCodeOn').checked,
+    family_names: $('sFam').value.split(',').map(s => s.trim()).filter(Boolean),
+    allow_list: $('sAllow').value.split('\n').map(s => s.trim()).filter(Boolean)};
+  $('saveBtn').disabled = true; $('saved').textContent = '';
+  settings = await fetch('/api/settings', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body)}).then(r => r.json());
+  $('saveBtn').disabled = false; $('saved').textContent = '✓ Saved';
+  setTimeout(() => { $('saved').textContent = ''; }, 2500);
+  $('hdrParent').textContent = $('hdrParent2').textContent = settings.parent_name;
+  render();
+};
+$('clearBtn').onclick = async () => {
+  if (!confirm('Clear all demo calls?')) return;
+  await fetch('/api/calls', {method: 'DELETE'}); $('alert').style.display = 'none'; lastJson = ''; calls = []; poll();
+};
+
+$('genaMini').innerHTML = window.Characters.shieldy('happy');
+loadSettings().then(poll); setInterval(poll, 1500);
+setInterval(() => { const l = visible(); document.querySelectorAll('.call .when').forEach((el, i) => { if (l[i]) el.textContent = ago(l[i].started_at); }); }, 30000);
+</script>
+</body>
+</html>

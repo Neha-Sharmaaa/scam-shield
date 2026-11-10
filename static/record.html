@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en" data-theme="gnani">
+<head>
+<meta charset="utf-8">
+<title>Scam Shield demo stage</title>
+<link rel="stylesheet" href="/static/theme.css">
+<script src="/static/characters.js"></script>
+<style>
+/* 1280x720 stage used only to record the demo video */
+html, body { margin: 0; width: 1280px; height: 720px; overflow: hidden; background: var(--bg); font-family: var(--font-body); color: var(--ink); }
+.top { position: absolute; left: 0; right: 0; top: 0; height: 46px; display: flex; align-items: center; gap: 10px; padding: 0 20px; border-bottom: 1px solid var(--line); background: #fff; }
+.top .mark { width: 28px; height: 28px; border-radius: 8px; display: grid; place-items: center; background: var(--grad); font-size: 14px; }
+.top b { font-family: var(--font-display); font-weight: 400; font-size: 21px; }
+.top .tag { margin-left: auto; font-size: 13px; color: var(--muted); }
+.lbl { position: absolute; top: 54px; font-size: 11.5px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase; color: var(--faint); }
+iframe { position: absolute; top: 74px; border: 1px solid var(--line2); border-radius: 14px; background: var(--bg); }
+#caller { left: 14px; width: 440px; height: 520px; }
+#dash { left: 466px; width: 800px; height: 520px; }
+
+/* caption bar with a reacting character */
+.cap { position: absolute; left: 14px; right: 14px; bottom: 12px; height: 108px; border-radius: 16px; background: #14151c; color: #fff;
+  display: flex; align-items: center; gap: 18px; padding: 0 26px 0 14px; box-shadow: 0 12px 30px rgba(0,0,0,.18); }
+.cap .av { position: relative; flex: none; width: 92px; height: 92px; border-radius: 18px; background: linear-gradient(160deg, #fff6ee, #ece8ff); overflow: hidden; }
+.cap .av svg { position: absolute; left: 6px; top: 4px; width: 80px; height: 96px; }
+.cap .av.pop { animation: pop .45s cubic-bezier(.2,1.6,.4,1); }
+.cap .n { position: absolute; right: 4px; top: 4px; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--grad); color: #1d1e1d; font-weight: 800; font-size: 14px; }
+.cap .t { font-size: 25px; font-weight: 700; line-height: 1.25; letter-spacing: -.2px; }
+.cap .t small { display: block; font-size: 17px; font-weight: 500; color: #c9c6d6; margin-top: 3px; }
+
+/* full-screen story cards */
+.card { position: absolute; inset: 0; z-index: 5; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 12px;
+  background: radial-gradient(900px 500px at 80% 0%, rgba(254,145,75,.25), transparent 60%), radial-gradient(800px 500px at 0% 100%, rgba(108,98,237,.18), transparent 60%), var(--bg);
+  transition: opacity .6s; }
+.card.off { opacity: 0; pointer-events: none; }
+.card h1 { font-family: var(--font-display); font-weight: 400; font-size: 50px; line-height: 1.05; margin: 0; max-width: 1100px; letter-spacing: -1px; }
+.card h1 em { font-style: normal; background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.card p { font-size: 21px; color: var(--muted); margin: 0; max-width: 900px; }
+.card .chips { display: flex; gap: 10px; margin-top: 4px; }
+.card .chips span { padding: 7px 15px; border-radius: 999px; background: #fff; border: 1px solid var(--line2); font-size: 17px; font-weight: 600; }
+
+.story { position: relative; width: 1100px; height: 330px; margin-bottom: 6px; }
+.actor { position: absolute; bottom: 0; width: 230px; height: 276px; }
+.actor svg { width: 100%; height: 100%; }
+.floor { position: absolute; left: 60px; right: 60px; bottom: 6px; height: 18px; border-radius: 50%; background: rgba(29,30,29,.07); }
+.chair { position: absolute; bottom: 0; width: 290px; height: 200px; border-radius: 60px 60px 18px 18px; background: linear-gradient(180deg, #e9a37a, #d98b62); box-shadow: inset 0 -16px 0 rgba(0,0,0,.08); }
+.bubble { position: absolute; padding: 12px 18px; border-radius: 20px; background: #fff; border: 2px solid #1d1e1d; font-size: 21px; font-weight: 700; color: #1d1e1d;
+  box-shadow: 0 8px 0 rgba(29,30,29,.12); white-space: nowrap; opacity: 0; animation: bub .5s cubic-bezier(.2,1.5,.4,1) forwards; }
+.bubble::after { content: ""; position: absolute; bottom: -12px; width: 20px; height: 20px; background: #fff; border-right: 2px solid #1d1e1d; border-bottom: 2px solid #1d1e1d; transform: rotate(45deg); }
+.bubble.l::after { left: 28px; } .bubble.r::after { right: 28px; } .bubble.c::after { left: calc(50% - 10px); }
+.bubble.dark { background: #2a2e37; color: #fff; border-color: #2a2e37; } .bubble.dark::after { background: #2a2e37; border-color: #2a2e37; }
+.rings { position: absolute; font-size: 34px; opacity: 0; animation: bub .4s .2s forwards, shake .35s .6s 6; }
+.enter { animation: rise .6s cubic-bezier(.2,1.4,.4,1) both; }
+.drop-in { animation: dropin .8s cubic-bezier(.2,1.5,.4,1) both; }
+.slink { animation: slink 2.6s .8s ease-in forwards; }
+
+/* character life */
+.ch .blink { animation: blink 3.6s infinite; transform-box: fill-box; transform-origin: center; }
+.ch .breathe { animation: breathe 3s ease-in-out infinite; transform-box: fill-box; transform-origin: bottom center; }
+.ch .bob { animation: bobbing 2.2s ease-in-out infinite; }
+.ch .steam { animation: steam 2s ease-in-out infinite; opacity: .8; } .ch .steam.s2 { animation-delay: .7s; }
+.ch .talk { animation: talk .28s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: center; }
+.ch .ring { animation: shake .3s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.ch .fume { animation: fume .6s ease-in-out infinite alternate; }
+.ch .drop { animation: drip 1.4s ease-in infinite; }
+@keyframes blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.1); } }
+@keyframes breathe { 50% { transform: scale(1.015, .99); } }
+@keyframes bobbing { 50% { transform: translateY(-7px); } }
+@keyframes steam { 0% { transform: translateY(4px); opacity: 0; } 40% { opacity: .8; } 100% { transform: translateY(-10px); opacity: 0; } }
+@keyframes talk { from { transform: scaleY(.35); } to { transform: scaleY(1.1); } }
+@keyframes shake { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-8deg); } 75% { transform: rotate(8deg); } }
+@keyframes fume { to { transform: translateY(-5px); } }
+@keyframes drip { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(26px); opacity: 0; } }
+@keyframes bub { from { opacity: 0; transform: translateY(10px) scale(.85); } to { opacity: 1; transform: none; } }
+@keyframes rise { from { opacity: 0; transform: translateY(40px); } }
+@keyframes dropin { 0% { opacity: 0; transform: translateY(-220px) scale(.6); } 100% { opacity: 1; transform: none; } }
+@keyframes pop { from { transform: scale(.7); } }
+@keyframes slink { to { transform: translateX(-140px) scale(.82); opacity: .35; } }
+</style>
+</head>
+<body>
+<div class="top"><span class="mark">🛡️</span><b>Scam Shield</b><span class="tag">Live demo · real Gnani Prisma (8 kHz) + Timbre · synthetic role-play calls</span></div>
+<div class="lbl" style="left:16px">📞 The caller's phone</div>
+<div class="lbl" style="left:468px">🛡️ The son/daughter's dashboard</div>
+<iframe id="caller" src="about:blank" allow="autoplay; microphone"></iframe>
+<iframe id="dash" src="about:blank" allow="autoplay"></iframe>
+<div class="cap"><div class="av" id="capAv"><span class="n" id="capN">▶</span></div><div class="t" id="capT"></div></div>
+<div class="card" id="card"><div class="story" id="story"></div><h1 id="cardH"></h1><p id="cardP"></p><div class="chips" id="cardC"></div></div>
+<script>
+const C = window.Characters;
+const STORIES = {
+  intro: () => `
+    <div class="floor"></div>
+    <div class="actor enter" style="left:70px">${C.scammer('talk')}</div>
+    <div class="bubble dark l" style="left:40px;top:0;animation-delay:.3s">“Hello uncle, CBI se…”</div>
+    <div class="rings" style="left:330px;top:120px">📞</div>
+    <div class="chair" style="right:70px"></div>
+    <div class="actor enter" style="right:100px;animation-delay:.15s">${C.papa('chai')}</div>
+    <div class="actor drop-in" style="left:calc(50% - 105px);width:210px;height:250px;animation-delay:1.3s">${C.shieldy('happy')}</div>
+    <div class="bubble c" style="left:calc(50% - 175px);top:-34px;animation-delay:2.1s">Unknown number? Main sambhal lungi! 🛡️</div>`,
+  outro: () => `
+    <div class="floor"></div>
+    <div class="actor slink" style="left:70px">${C.scammer('sad')}</div>
+    <div class="bubble dark l" style="left:100px;top:20px;animation-delay:.4s">“Not again…”</div>
+    <div class="actor enter" style="left:calc(50% - 105px);width:210px;height:250px">${C.shieldy('happy')}</div>
+    <div class="chair" style="right:70px"></div>
+    <div class="actor enter" style="right:100px">${C.papa('chai')}</div>
+    <div class="bubble r" style="right:110px;top:0;animation-delay:.9s">Chai in peace ☕</div>`,
+};
+window.setCap = (n, html, who, mood) => {
+  document.getElementById('capT').innerHTML = html;
+  const av = document.getElementById('capAv');
+  av.innerHTML = C.render(who || 'shieldy', mood) + `<span class="n">${n}</span>`;
+  av.classList.remove('pop'); void av.offsetWidth; av.classList.add('pop');
+};
+window.showCard = (h, p, chips, story) => {
+  const c = document.getElementById('card');
+  document.getElementById('story').innerHTML = story && STORIES[story] ? STORIES[story]() : '';
+  document.getElementById('story').style.display = story ? 'block' : 'none';
+  document.getElementById('cardH').innerHTML = h; document.getElementById('cardP').innerHTML = p || '';
+  document.getElementById('cardC').innerHTML = (chips || []).map(x => `<span>${x}</span>`).join('');
+  c.classList.remove('off');
+};
+window.hideCard = () => document.getElementById('card').classList.add('off');
+setCap('▶', '', 'shieldy', 'happy');
+</script>
+</body>
+</html>

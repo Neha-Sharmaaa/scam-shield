@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scam Shield</title>
+<meta name="description" content="Meet Gena: an AI call assistant that answers unknown calls for elderly parents, in 7 Indian languages. Built on Gnani Prisma and Timbre.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;600&family=Noto+Sans+Kannada:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #070b16; --bg2: #0d1426; --card: rgba(var(--fg-rgb),.04); --line: rgba(var(--fg-rgb),.09);
+  --ink: #eef2fb; --muted: #9aa6bf; --accent: #ff7a45; --accent2: #ffb347; --teal: #2ee6a6;
+  --red: #ff5a5f; --amber: #ffc24b; --green: #36d98a; --blue: #6aa8ff;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.6 "Plus Jakarta Sans", system-ui, sans-serif; overflow-x: hidden; }
+.dev { font-family: "Noto Sans Devanagari", "Plus Jakarta Sans", sans-serif; }
+.kn { font-family: "Noto Sans Kannada", "Plus Jakarta Sans", sans-serif; }
+a { color: inherit; }
+.wrap { max-width: 1160px; margin: 0 auto; padding: 0 20px; }
+
+/* background glow */
+.glow { position: fixed; inset: -20% -10% auto auto; width: 70vw; height: 70vw; max-width: 900px; max-height: 900px; pointer-events: none; z-index: 0;
+  background: radial-gradient(circle at 60% 40%, rgba(var(--accent-rgb),.22), transparent 55%), radial-gradient(circle at 30% 70%, rgba(var(--teal-rgb),.12), transparent 50%); filter: blur(20px); }
+.grid-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .35;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 56px 56px; mask-image: radial-gradient(ellipse at 50% 0%, #000 20%, transparent 70%); -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 20%, transparent 70%); }
+main, nav, footer { position: relative; z-index: 1; }
+
+/* nav */
+nav { display: flex; align-items: center; gap: 18px; padding: 18px 0; }
+.logo { white-space: nowrap; display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; letter-spacing: -.3px; text-decoration: none; }
+.logo .mark { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: var(--grad); font-size: 18px; box-shadow: 0 6px 24px rgba(var(--accent-rgb),.35); }
+nav .links { margin-left: auto; display: flex; gap: 22px; font-size: 15px; color: var(--muted); }
+nav .links a { text-decoration: none; } nav .links a:hover { color: var(--ink); }
+@media (max-width: 760px) { nav .links { display: none; } nav .btn.sm { margin-left: auto; } }
+@media (max-width: 480px) { nav .full { display: none; } }
+
+/* buttons */
+.btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; border-radius: 999px; font-weight: 700; text-decoration: none; font-size: 16px; transition: transform .15s, box-shadow .15s; border: 1px solid transparent; }
+.btn:hover { transform: translateY(-2px); }
+.btn.primary { background: var(--grad); color: var(--on-accent); box-shadow: 0 10px 30px rgba(var(--accent-rgb),.35); }
+.btn.ghost { border-color: var(--line); background: var(--card); color: var(--ink); }
+.btn.sm { padding: 9px 16px; font-size: 14px; }
+
+/* hero */
+.hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; padding: 48px 0 70px; }
+@media (max-width: 920px) { .hero { grid-template-columns: 1fr; padding-top: 20px; } }
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: var(--accent2);
+  border: 1px solid rgba(var(--accent2-rgb),.3); background: rgba(var(--accent2-rgb),.08); padding: 6px 12px; border-radius: 999px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 0 rgba(var(--teal-rgb),.6); animation: ping 1.8s infinite; }
+@keyframes ping { 70% { box-shadow: 0 0 0 10px rgba(var(--teal-rgb),0); } 100% { box-shadow: 0 0 0 0 rgba(var(--teal-rgb),0); } }
+h1 { font-size: clamp(38px, 5.6vw, 66px); line-height: 1.04; letter-spacing: -1.8px; margin: 18px 0 18px; font-weight: 800; }
+h1 .grad { background: var(--grad-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lead { font-size: 19px; color: var(--muted); max-width: 560px; }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; margin: 28px 0 22px; }
+.badges { display: flex; gap: 10px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+.badges span { border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; background: var(--card); }
+
+/* phone mockup */
+.phone-wrap { display: flex; justify-content: flex-start; position: relative; width: 100%; max-width: 530px; margin: 0 auto; }
+.phone { width: 296px; height: 620px; border-radius: 46px; padding: 14px; background: linear-gradient(160deg, #20283d, #0b1020); border: 1px solid rgba(var(--fg-rgb),.12);
+  box-shadow: 0 40px 80px var(--shadow), inset 0 0 0 2px rgba(var(--fg-rgb),.04); position: relative; }
+.screen { height: 100%; border-radius: 34px; background: linear-gradient(180deg, #111a30, #0a0f1d); overflow: hidden; display: flex; flex-direction: column; position: relative; }
+.notch { position: absolute; top: 8px; left: 50%; transform: translateX(-50%); width: 96px; height: 24px; background: #05070e; border-radius: 20px; z-index: 2; }
+.ph-head { padding: 46px 18px 12px; text-align: center; border-bottom: 1px solid var(--line); }
+.ph-head .lbl { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+.ph-head .num { font-size: 21px; font-weight: 700; margin-top: 2px; }
+.ph-head .state { font-size: 12px; color: var(--teal); margin-top: 2px; }
+.feed { flex: 1; padding: 14px 12px; display: flex; flex-direction: column; gap: 9px; overflow: hidden; justify-content: flex-end; }
+.msg { max-width: 86%; padding: 9px 12px; border-radius: 14px; font-size: 13.5px; line-height: 1.4; opacity: 0; transform: translateY(10px); animation: in .45s forwards; }
+@keyframes in { to { opacity: 1; transform: none; } }
+.msg.agent { background: rgba(var(--blue-rgb),.14); border: 1px solid rgba(var(--blue-rgb),.25); align-self: flex-start; border-bottom-left-radius: 4px; }
+.msg.caller { background: rgba(var(--fg-rgb),.06); border: 1px solid var(--line); align-self: flex-end; border-bottom-right-radius: 4px; }
+.msg .who { font-size: 10px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+.flag { font-size: 10.5px; font-weight: 700; margin-top: 5px; display: flex; gap: 4px; flex-wrap: wrap; }
+.flag i { font-style: normal; padding: 1px 7px; border-radius: 6px; background: rgba(var(--red-rgb),.16); color: var(--red-ink); border: 1px solid rgba(var(--red-rgb),.3); }
+.verdict { align-self: stretch; margin-top: 4px; border-radius: 14px; padding: 11px 12px; background: rgba(var(--red-rgb),.12); border: 1px solid rgba(var(--red-rgb),.45); font-size: 13px; opacity: 0; animation: in .5s forwards; }
+.verdict b { color: var(--red-ink); font-size: 15px; }
+.ph-foot { padding: 14px; display: flex; justify-content: center; gap: 28px; border-top: 1px solid var(--line); }
+.ph-foot div { width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; font-size: 22px; }
+.ph-foot .mic { background: rgba(var(--fg-rgb),.08); }
+.ph-foot .end { background: var(--red); box-shadow: 0 6px 20px rgba(var(--red-rgb),.45); }
+.float { position: absolute; z-index: 3; background: #0d1426; border: 1px solid rgba(255,255,255,.12); border-radius: 16px; padding: 12px 14px; font-size: 13px; line-height: 1.45; box-shadow: 0 20px 40px var(--shadow); }
+.float.wa { right: 0; top: 96px; width: 186px; border-left: 3px solid #25d366; transform: translateY(8px); transition: opacity .5s, transform .5s; }
+.float.wa.show { opacity: 1 !important; transform: none; }
+.float.wa .t { color: #6ee7a0; font-weight: 700; font-size: 11px; letter-spacing: .5px; text-transform: uppercase; }
+.float.stt { right: 0; bottom: 120px; width: 186px; }
+.float.stt .t { color: var(--accent2); font-weight: 700; font-size: 11px; letter-spacing: .5px; text-transform: uppercase; }
+.wave { display: flex; gap: 3px; align-items: center; height: 22px; margin-top: 6px; }
+.wave span { width: 3px; border-radius: 2px; background: var(--accent2); animation: wv 1s infinite ease-in-out; }
+@keyframes wv { 50% { transform: scaleY(.3); } }
+/* cards need ~190px beside the phone: hide them where the column is too narrow */
+@media (max-width: 1180px) and (min-width: 921px) { .float { display: none; } }
+@media (max-width: 920px) { .phone-wrap { margin-top: 30px; } }
+@media (max-width: 560px) { .float { display: none; } .phone-wrap { justify-content: center; } }
+@media (max-width: 420px) { .phone { width: 290px; height: 580px; } .float { display: none; } }
+
+/* sections */
+section { padding: 70px 0; }
+.sec-head { max-width: 680px; margin-bottom: 36px; }
+.kicker { color: var(--accent2); font-weight: 700; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; }
+h2 { font-size: clamp(28px, 3.6vw, 42px); letter-spacing: -1px; line-height: 1.1; margin: 10px 0 12px; }
+.sec-head p { color: var(--muted); margin: 0; }
+
+.scams { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 860px) { .scams { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .scams { grid-template-columns: 1fr; } }
+.scam { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 18px; transition: border-color .2s, transform .2s; }
+.scam:hover { border-color: rgba(var(--accent-rgb),.45); transform: translateY(-3px); }
+.scam .ic { font-size: 26px; }
+.scam h3 { margin: 8px 0 4px; font-size: 17px; }
+.scam q { color: var(--muted); font-size: 14.5px; quotes: "“" "”"; }
+
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; counter-reset: s; }
+@media (max-width: 920px) { .steps { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .steps { grid-template-columns: 1fr; } }
+.step { position: relative; background: var(--card-bg); border: 1px solid var(--line); border-radius: 20px; padding: 22px 20px; }
+.step::before { counter-increment: s; content: "0" counter(s); font-weight: 800; font-size: 13px; color: var(--accent2); letter-spacing: 1px; }
+.step .ic { font-size: 30px; margin: 10px 0 6px; }
+.step h3 { margin: 0 0 6px; font-size: 18px; }
+.step p { margin: 0; color: var(--muted); font-size: 15px; }
+
+.verdicts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 18px; }
+@media (max-width: 760px) { .verdicts { grid-template-columns: 1fr; } }
+.v { border-radius: 18px; padding: 18px; border: 1px solid; }
+.v h3 { margin: 0 0 4px; font-size: 18px; }
+.v p { margin: 0; font-size: 15px; color: var(--muted); }
+.v.g { border-color: rgba(var(--green-rgb),.4); background: rgba(var(--green-rgb),.07); } .v.g h3 { color: var(--green); }
+.v.y { border-color: rgba(var(--amber-rgb),.4); background: rgba(var(--amber-rgb),.07); } .v.y h3 { color: var(--amber); }
+.v.r { border-color: rgba(var(--red-rgb),.45); background: rgba(var(--red-rgb),.08); } .v.r h3 { color: var(--red); }
+
+/* demo cards */
+.demo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+@media (max-width: 920px) { .demo { grid-template-columns: 1fr; } }
+.dcard { display: flex; flex-direction: column; border-radius: 22px; padding: 22px; background: var(--bg2); border: 1px solid var(--line); position: relative; overflow: hidden; }
+.dcard::after { content: ""; position: absolute; inset: auto -40px -60px auto; width: 180px; height: 180px; border-radius: 50%; filter: blur(30px); opacity: .35; }
+.dcard.r::after { background: var(--red); } .dcard.y::after { background: var(--amber); } .dcard.g::after { background: var(--green); }
+.dcard .tag { font-size: 12px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; }
+.dcard.r .tag { color: var(--red); } .dcard.g .tag { color: var(--green); } .dcard.y .tag { color: var(--amber); }
+.dcard h3 { margin: 6px 0 10px; font-size: 20px; }
+.dcard .lines { font-size: 14.5px; color: var(--muted); margin: 0 0 18px; padding-left: 18px; flex: 1; }
+.dcard .lines li { margin-bottom: 5px; }
+.dcard .btn { align-self: flex-start; position: relative; z-index: 1; }
+
+.cta-band { border-radius: 28px; padding: 44px 32px; text-align: center; background: linear-gradient(135deg, rgba(var(--accent-rgb),.18), rgba(var(--teal-rgb),.10)); border: 1px solid rgba(var(--accent2-rgb),.25); }
+.cta-band h2 { margin-top: 0; }
+.cta-band .cta { justify-content: center; margin-bottom: 0; }
+
+.tech { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 760px) { .tech { grid-template-columns: 1fr; } }
+.tcard { border: 1px solid var(--line); border-radius: 20px; padding: 22px; background: var(--card); }
+.tcard .k { font-size: 12px; font-weight: 700; color: var(--teal); letter-spacing: .8px; text-transform: uppercase; }
+.tcard h3 { margin: 6px 0 8px; font-size: 22px; }
+.tcard p { margin: 0; color: var(--muted); font-size: 15px; }
+.tcard code { font-size: 13px; background: rgba(var(--fg-rgb),.06); padding: 2px 6px; border-radius: 6px; }
+
+footer { border-top: 1px solid var(--line); padding: 30px 0 50px; color: var(--muted); font-size: 14px; }
+footer .row { display: flex; gap: 20px; flex-wrap: wrap; justify-content: space-between; }
+.help a { color: var(--accent2); font-weight: 600; }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .msg, .verdict { opacity: 1; transform: none; } }
+
+/* the phone mockup is always a dark phone screen, whatever the page theme */
+.phone-wrap { --fg-rgb: 255,255,255; --ink: #eef2fb; --muted: #9aa6bf; --line: rgba(255,255,255,.09); --red-ink: #ff9b9e;
+  --red-rgb: 255,90,95; --blue-rgb: 106,168,255; --teal: #2ee6a6; --accent2: #ffb347; --red: #ff5a5f; color: var(--ink); }
+html[data-theme] .phone-wrap h1, .phone-wrap { font-family: "Plus Jakarta Sans", system-ui, sans-serif; }
+html[data-theme] .logo { font-family: var(--font-display); font-weight: 400; font-size: 22px; }
+/* demo video */
+.watch { padding-top: 10px; }
+.sec-head.center { margin-left: auto; margin-right: auto; text-align: center; }
+.player { position: relative; max-width: 1000px; margin: 0 auto; border-radius: 24px; overflow: hidden; border: 1px solid var(--line2);
+  box-shadow: 0 30px 80px var(--shadow); background: #000; }
+.player video { display: block; width: 100%; aspect-ratio: 16 / 9; height: auto; background: #000; cursor: pointer; }
+.chapters { display: flex; gap: 8px; flex-wrap: wrap; padding: 12px; background: var(--panel); border-top: 1px solid var(--line); }
+.chapters button { font: 600 14px var(--font-body); padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line2); background: rgba(var(--fg-rgb),.04); color: var(--ink); cursor: pointer; }
+.chapters button:hover { border-color: rgba(var(--accent-rgb),.6); }
+.chapters button.on { background: var(--grad); color: var(--on-accent); border-color: transparent; }
+.chapters .pick { align-self: center; font: 700 12.5px var(--font-body); letter-spacing: .6px; text-transform: uppercase; color: var(--faint); margin: 0 4px 0 4px; }
+.chapters button em { font-style: normal; font-weight: 500; opacity: .7; margin-left: 4px; font-variant-numeric: tabular-nums; }
+@media (max-width: 520px) { .chapters .pick { width: 100%; } }
+.watch-cta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 22px; }
+@media (max-width: 520px) { .player { border-radius: 16px; } .chapters button { font-size: 13px; } }
+/* custom player bar (below the video so it never covers the burned-in captions) */
+.vwrap { position: relative; }
+.vbar { position: absolute; left: 0; right: 0; bottom: 0; z-index: 5; display: flex; align-items: center; gap: 12px; padding: 28px 14px 10px; color: #fff;
+  background: linear-gradient(180deg, transparent, rgba(10,10,14,.82) 45%); opacity: 0; transform: translateY(8px); pointer-events: none;
+  transition: opacity .22s ease, transform .22s ease; }
+.vwrap:hover .vbar, .vwrap:has(:focus-visible) .vbar, .vwrap.touch .vbar { opacity: 1; transform: none; pointer-events: auto; }
+@media (hover: none) { .vwrap:hover .vbar { opacity: 0; transform: translateY(8px); pointer-events: none; } .vwrap.touch .vbar { opacity: 1; transform: none; pointer-events: auto; } }
+.vb { flex: none; width: 36px; height: 36px; border-radius: 10px; border: none; background: rgba(255,255,255,.08); color: #fff; font-size: 15px; cursor: pointer; display: grid; place-items: center; }
+.vb:hover { background: rgba(255,255,255,.16); }
+.vb:focus-visible, .vbar input:focus-visible { outline: 2px solid #ffb37a; outline-offset: 2px; }
+.vtime { flex: none; font: 600 13px var(--font-body); font-variant-numeric: tabular-nums; color: #c9c6d6; min-width: 86px; }
+.scrub { position: relative; flex: 1; height: 36px; display: flex; align-items: center; }
+.scrub input { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 99px; margin: 0; cursor: pointer; position: relative; z-index: 2;
+  background: linear-gradient(90deg, #fd904b, #a99cf0) 0 / var(--p, 0%) 100% no-repeat, rgba(255,255,255,.18); transition: height .15s; }
+.scrub:hover input { height: 8px; }
+.scrub input::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #fff; border: 3px solid #fd904b; box-shadow: 0 2px 8px rgba(0,0,0,.4); }
+.scrub input::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: #fff; border: 3px solid #fd904b; }
+.scrub input::-moz-range-track { background: transparent; }
+.tip { position: absolute; bottom: 38px; transform: translateX(-50%); padding: 4px 9px; border-radius: 8px; background: #fff; color: #1d1e1d; font: 700 12px var(--font-body);
+  white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity .12s; z-index: 4; }
+.scrub:hover .tip { opacity: 1; }
+.bigplay { position: absolute; left: 50%; top: 50%; width: 84px; height: 84px; margin: -42px 0 0 -42px; border-radius: 50%; display: grid; place-items: center;
+  background: rgba(20,21,28,.7); color: #fff; font-size: 32px; padding-left: 6px; pointer-events: none; opacity: 0; transition: opacity .2s; backdrop-filter: blur(6px); }
+.player.paused .bigplay { opacity: 1; }
+@media (max-width: 520px) { .vbar { gap: 8px; padding: 8px 10px; } .vtime { min-width: 0; font-size: 12px; } .vb { width: 32px; height: 32px; } }
+/* meet Gena */
+.gena-card { display: grid; grid-template-columns: 300px 1fr; gap: 44px; align-items: center; padding: 40px; border-radius: 28px; background: var(--card-bg); border: 1px solid var(--line); box-shadow: 0 20px 60px var(--shadow); }
+@media (max-width: 860px) { .gena-card { grid-template-columns: 1fr; padding: 26px; gap: 18px; text-align: left; } }
+.gena-hero { position: relative; display: flex; justify-content: center; }
+.gena-hero .gena-av { width: 240px; height: 288px; }
+@media (max-width: 860px) { .gena-hero .gena-av { width: 170px; height: 204px; } }
+.gena-badge { position: absolute; top: -8px; right: -6px; padding: 8px 14px; border-radius: 16px; background: var(--panel2); border: 2px solid var(--ink); font-weight: 700; font-size: 15px; box-shadow: 0 6px 0 rgba(var(--fg-rgb),.1); white-space: nowrap; }
+.gena-card h2 { margin: 8px 0 8px; }
+.gena-lead { color: var(--muted); margin: 0 0 14px; font-size: 18px; }
+.gena-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.gena-list li { padding: 12px 14px; border-radius: 14px; background: rgba(var(--fg-rgb),.035); border: 1px solid var(--line); font-size: 16px; color: var(--muted); }
+.gena-list li b { color: var(--ink); }
+</style>
+<script src="/static/characters.js"></script>
+<link rel="stylesheet" href="/static/theme.css">
+<script src="/static/theme.js"></script>
+</head>
+<body>
+<div class="glow"></div><div class="grid-bg"></div>
+
+<div class="wrap">
+<nav>
+  <a class="logo" href="/"><span class="mark">🛡️</span> Scam Shield</a>
+  <div class="links"><a href="#watch">▶ Watch demo</a><a href="#gena">Meet Gena</a><a href="#problem">The problem</a><a href="#how">How it works</a><a href="#demo">Try a call</a><a href="#tech">Built on Gnani</a></div>
+  <a class="btn ghost sm" href="/dashboard" style="white-space:nowrap;gap:0"><span class="full">Family&nbsp;</span>dashboard →</a>
+</nav>
+
+<main>
+  <!-- HERO -->
+  <div class="hero">
+    <div>
+      <span class="eyebrow"><span class="dot"></span> AI call guard · हिन्दी · English · ಕನ್ನಡ · தமிழ் · తెలుగు · मराठी · বাংলা</span>
+      <h1>Scammers can't panic Papa if they <span class="grad">never reach him.</span></h1>
+      <p class="lead">Scam Shield picks up every unknown call <b>before</b> it reaches your parents. <b>Gena</b>, a calm AI assistant, asks who's calling and why <b>in the caller's own language</b>, spots the scam script, and alerts you, all on noisy phone-line audio.</p>
+      <div class="cta">
+        <a class="btn primary" href="#watch">▶ Watch a 15-sec demo</a>
+        <a class="btn ghost" href="/caller">📞 Place a test call</a>
+      </div>
+      <div class="badges"><span>🎙️ Gnani Prisma STT</span><span>🔊 Gnani Timbre TTS</span><span>📶 8 kHz phone audio</span><span>🔎 Explainable rules</span></div>
+    </div>
+
+    <div class="phone-wrap" aria-hidden="true">
+      <div class="phone"><div class="screen">
+        <div class="notch"></div>
+        <div class="ph-head"><div class="lbl">Unknown caller · screened</div><div class="num">+91 00000 10001</div><div class="state" id="phState">● Gena answering…</div></div>
+        <div class="feed" id="feed"></div>
+        <div class="ph-foot"><div class="mic">🎙️</div><div class="end">📵</div></div>
+      </div></div>
+      <div class="float stt"><div class="t">Prisma · 8 kHz · noisy</div><div class="wave" id="wave"></div></div>
+      <div class="float wa" id="wa" style="opacity:0"><div class="t">WhatsApp · Gena</div>🔴 I stopped a suspicious call to Papa. <b>Authority claim + Threat + OTP request.</b> Papa was not connected.</div>
+    </div>
+  </div>
+
+  <!-- WATCH -->
+  <section id="watch" class="watch">
+    <div class="sec-head center">
+      <div class="kicker">Too long, didn't read?</div>
+      <h2>Pick a call. Watch Gena handle it.</h2>
+      <p>Real recordings of the app, each under 30 seconds. Captions on, so they work on mute.</p>
+    </div>
+    <div class="player">
+      <div class="vwrap" id="vwrap">
+      <video id="demoVid" src="/static/media/case-cbi.mp4" poster="/static/media/case-cbi.jpg"
+             muted loop playsinline preload="metadata" aria-label="Scam Shield demo video with captions"></video>
+      <div class="bigplay" id="bigPlay" aria-hidden="true">▶</div>
+      <div class="vbar" id="vbar">
+        <button class="vb" id="vPlay" type="button" aria-label="Pause">❚❚</button>
+        <span class="vtime" id="vTime">0:00 / 0:00</span>
+        <div class="scrub" id="scrub">
+          <input type="range" id="vSeek" min="0" max="100" step="0.1" value="0" aria-label="Seek video">
+          <div class="tip" id="tip">0:00</div>
+        </div>
+        <button class="vb" id="vMute" type="button" aria-label="Unmute">🔇</button>
+        <button class="vb" id="vFull" type="button" aria-label="Full screen">⛶</button>
+      </div>
+      </div>
+      <div class="chapters" id="chapters" role="tablist" aria-label="Choose a call to watch">
+        <span class="pick">Choose a call:</span>
+        <button role="tab" data-case="cbi" class="on" aria-selected="true">🔴 Fake CBI officer <em>0:14</em></button>
+        <button role="tab" data-case="relative" aria-selected="false">🔴 Fake "relative" <em>0:19</em></button>
+        <button role="tab" data-case="delivery" aria-selected="false">🟢 Genuine delivery + Kannada message <em>0:30</em></button>
+      </div>
+    </div>
+    <div class="watch-cta"><a class="btn primary" href="/caller">📞 Now try it yourself</a><a class="btn ghost" href="/dashboard">🛡️ Open family dashboard</a></div>
+  </section>
+
+  <!-- MEET GENA -->
+  <section id="gena" class="gena-sec">
+    <div class="gena-card">
+      <div class="gena-hero"><span class="gena-av" id="genaBig"></span><span class="gena-badge">“Main sambhal lungi!”</span></div>
+      <div>
+        <div class="kicker">Meet Gena</div>
+        <h2>Your parents' call assistant.</h2>
+        <p class="gena-lead">Gena picks up every unknown call, stays calm, and never lets a stranger rush Papa.</p>
+        <ul class="gena-list">
+          <li><b>🗣️ Speaks 7 languages:</b> हिन्दी, English, ಕನ್ನಡ, தமிழ், తెలుగు, मराठी, বাংলা. She replies in whatever language the caller speaks.</li>
+          <li><b>🤐 Gives nothing away:</b> she never confirms personal details and never accuses anyone.</li>
+          <li><b>📵 Never hands over the phone:</b> unknown callers never reach Papa directly.</li>
+          <li><b>🔁 Checks "relatives" safely:</b> the family is told to call back on a number they already have.</li>
+          <li><b>👨‍👩‍👦 Keeps you in the loop:</b> an instant alert, with the reasons and the full transcript.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section id="problem">
+    <div class="sec-head">
+      <div class="kicker">The problem</div>
+      <h2>The same scripts, every day, aimed at our parents.</h2>
+      <p>They all work the same way: create panic, keep the victim on the line, and get them to pay or share a code before they can ask anyone.</p>
+    </div>
+    <div class="scams">
+      <div class="scam"><div class="ic">👮</div><h3>"Digital arrest"</h3><q class="dev">मैं CBI से बोल रहा हूँ, आपके नाम पे case है</q></div>
+      <div class="scam"><div class="ic">📦</div><h3>Courier / customs</h3><q>Your parcel has drugs, pay the fine now</q></div>
+      <div class="scam"><div class="ic">🏦</div><h3>KYC / bank block</h3><q>Account band ho jayega, OTP batao</q></div>
+      <div class="scam"><div class="ic">💡</div><h3>Electricity cut</h3><q>Bijli vibhag se, aaj raat light kat jayegi</q></div>
+      <div class="scam"><div class="ic">🚑</div><h3>Fake relative emergency</h3><q>Aunty, Rohit ka accident ho gaya, turant paise bhejo</q></div>
+      <div class="scam"><div class="ic">🖥️</div><h3>Remote-access apps</h3><q>Refund ke liye AnyDesk download kar lijiye</q></div>
+    </div>
+  </section>
+
+  <!-- HOW -->
+  <section id="how">
+    <div class="sec-head">
+      <div class="kicker">How it works</div>
+      <h2>Gena: a polite gatekeeper that never hands over the phone.</h2>
+      <p>No LLM improvising on the call: a fixed, calm script and transparent rules, so every flag comes with a reason the family can read.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="ic">📲</div><h3>Gena answers first</h3><p>Only unknown numbers go to Gena. Saved contacts ring straight through, with no questions.</p></div>
+      <div class="step"><div class="ic">🗣️</div><h3>Asks 3 questions</h3><p>Who? From where? Why? Gena greets in your family's language, then <b>replies in whatever language the caller speaks</b>: 7 languages, voiced by Gnani Timbre.</p></div>
+      <div class="step"><div class="ic">🔎</div><h3>Checks the script</h3><p>Prisma transcribes 8 kHz audio. Rules spot OTP requests, authority claims, threats, secrecy, money and remote-access demands.</p></div>
+      <div class="step"><div class="ic">🔁</div><h3>"Family" gets a call-back</h3><p>A "grandson in trouble" from a new number? Family claim + money or panic ends the call. Otherwise you're asked to call back on the number you already have.</p></div>
+    </div>
+    <div class="verdicts">
+      <div class="v g"><h3>🟢 Low risk</h3><p>Gena takes a message and reads it to Papa in the family's own language.</p></div>
+      <div class="v y"><h3>🟡 Unclear</h3><p>The caller is told the family will call back. You decide.</p></div>
+      <div class="v r"><h3>🔴 High risk</h3><p>Gena ends the call politely. You get an instant alert with reasons and the full transcript.</p></div>
+    </div>
+  </section>
+
+  <!-- DEMO -->
+  <section id="demo">
+    <div class="sec-head">
+      <div class="kicker">Try it yourself</div>
+      <h2>Play the scammer. See if you get through.</h2>
+      <p>Pick a scenario, then speak the lines into your mic. Keep the family dashboard open in another tab to watch the verdict and alert arrive live.</p>
+    </div>
+    <div class="demo">
+      <div class="dcard r">
+        <span class="tag">🔴 Expected: high risk</span>
+        <h3>👮 The fake CBI officer</h3>
+        <ol class="lines"><li>"Main CBI officer Verma bol raha hoon."</li><li>"Cyber cell, Delhi se."</li><li>"Aapke naam pe case hai, OTP batao."</li></ol>
+        <a class="btn primary sm" href="/caller?n=%2B91%2000000%2010001">📞 Start this call</a>
+      </div>
+      <div class="dcard r">
+        <span class="tag">🔴 Expected: high risk</span>
+        <h3>🚑 The "relative" in trouble</h3>
+        <ol class="lines"><li>"Aunty, Rohit ka accident ho gaya, turant paise bhejo."</li><li>Asked their relation: "Main uska dost hoon, jaldi karo!"</li></ol>
+        <a class="btn primary sm" href="/caller?n=%2B91%2000000%2010002">📞 Start this call</a>
+      </div>
+      <div class="dcard g">
+        <span class="tag">🟢 Expected: low risk</span>
+        <h3>📦 A genuine delivery</h3>
+        <ol class="lines"><li>"Main Suresh bol raha hoon."</li><li>"Delivery company se."</li><li>"Delivery hai, kal aaunga, ghar pe koi hoga?"</li></ol>
+        <a class="btn primary sm" href="/caller?n=%2B91%2000000%2010003">📞 Start this call</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="cta-band">
+      <h2>Ready to test the guard?</h2>
+      <p style="color:var(--muted);margin:0 auto;max-width:560px">Open the caller in one tab and the family dashboard in another. Turn a fan on for extra noise.</p>
+      <div class="cta">
+        <a class="btn primary" href="/caller" target="_blank">📞 Open the call page</a>
+        <a class="btn ghost" href="/dashboard" target="_blank">🛡️ Open the dashboard</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECH -->
+  <section id="tech">
+    <div class="sec-head">
+      <div class="kicker">Built on Gnani AI</div>
+      <h2>Indian-language voice AI, end to end.</h2>
+    </div>
+    <div class="tech">
+      <div class="tcard"><div class="k">Speech-to-text</div><h3>🎙️ Gnani Prisma v3.0</h3><p>Transcribes callers from <b>8 kHz mono</b> phone-band audio, even with fan/TV noise, and <b>detects their language</b> (<code>indic-auto</code>): Hinglish, Hindi, English, Kannada, Tamil, Telugu, Marathi, Bengali. <code>codemix</code> keeps "OTP" and "CBI" in Latin script for reliable matching.</p></div>
+      <div class="tcard"><div class="k">Text-to-speech</div><h3>🔊 Gnani Timbre v3.0</h3><p>Gena's voice in the caller's language, and safe messages read to Papa in <b>the family's own language</b>, whatever language the caller used. Every fixed line is cached, so repeat calls cost no credits.</p></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="row">
+    <div>🛡️ Scam Shield <b>flags suspicious calls</b>; it doesn't claim to stop every scam. When it's wrong, a genuine caller just leaves a message.<br>All demo data is synthetic: numbers are invalid by design and every call is scripted role-play.</div>
+    <div class="help">Lost money to a scam? Call <a href="tel:1930">1930</a> · <a href="https://cybercrime.gov.in/" target="_blank" rel="noopener">cybercrime.gov.in</a> · <a href="https://sancharsaathi.gov.in/sfc/" target="_blank" rel="noopener">Chakshu</a></div>
+  </div>
+</footer>
+</div>
+
+<script>
+// animated waveform
+const wave = document.getElementById('wave');
+for (let i = 0; i < 24; i++) { const s = document.createElement('span'); s.style.height = (6 + Math.random() * 16) + 'px'; s.style.animationDelay = (i * 0.05) + 's'; wave.appendChild(s); }
+
+// looping mock call in the phone
+const SCRIPT = [
+  ['agent', 'Namaste, main Sharma ji ki sahayak bol rahi hoon. Aap kaun bol rahe hain?'],
+  ['caller', 'Main CBI officer Verma bol raha hoon.', ['Authority claim']],
+  ['agent', 'Aapne kis kaam ke liye call kiya hai?'],
+  ['caller', 'Aapke naam pe case hai, OTP batao, kisi ko mat batana.', ['Threat', 'OTP request', 'Secrecy']],
+  ['verdict'],
+  ['agent', 'Dhanyavaad. Yeh call samaapt ki ja rahi hai.'],
+];
+const feed = document.getElementById('feed'), st = document.getElementById('phState'), wa = document.getElementById('wa');
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+async function loop() {
+  while (true) {
+    feed.innerHTML = ''; wa.classList.remove('show'); st.textContent = '● Gena answering…'; st.style.color = '';
+    for (const [who, text, flags] of SCRIPT) {
+      await new Promise(r => setTimeout(r, reduce ? 0 : 1500));
+      const el = document.createElement('div');
+      if (who === 'verdict') {
+        el.className = 'verdict';
+        el.innerHTML = '<b>🔴 High risk</b><br>Authority claim + Urgency/threat + Credentials + Secrecy';
+        st.textContent = '● Scam detected, ending call'; st.style.color = 'var(--red)';
+      } else {
+        el.className = 'msg ' + who;
+        el.innerHTML = `<div class="who">${who === 'agent' ? 'Gena' : 'Caller'}</div>`;
+        el.appendChild(document.createTextNode(text));
+        if (flags) { const f = document.createElement('div'); f.className = 'flag'; f.innerHTML = flags.map(x => `<i>${x}</i>`).join(''); el.appendChild(f); }
+      }
+      feed.appendChild(el);
+    }
+    st.textContent = '📵 Call ended · Papa never connected';
+    wa.classList.add('show');
+    if (reduce) return;
+    await new Promise(r => setTimeout(r, 4500));
+  }
+}
+loop();
+document.getElementById('genaBig').innerHTML = window.Characters.shieldy('happy');
+
+// demo video: autoplay muted when visible (captions are burned in), custom seek bar, chapters
+const vid = document.getElementById('demoVid');
+const player = vid.closest('.player'), seek = document.getElementById('vSeek'), tip = document.getElementById('tip');
+const CASES = {cbi: 'Fake CBI officer', relative: 'Fake "relative"', delivery: 'Genuine delivery'};
+let userPaused = false, scrubbing = false;
+const fmt = t => { t = Math.max(0, Math.floor(t || 0)); return Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0'); };
+
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting && !reduce && !userPaused) vid.play().catch(() => {}); else if (!e.isIntersecting) vid.pause();
+}), {threshold: 0.4});
+io.observe(vid);
+
+function paint() {
+  const d = vid.duration || 0, t = scrubbing ? +seek.value : vid.currentTime;
+  if (!scrubbing) seek.value = t;
+  seek.style.setProperty('--p', d ? (t / d * 100) + '%' : '0%');
+  document.getElementById('vTime').textContent = fmt(t) + ' / ' + fmt(d);
+}
+function sync() {
+  player.classList.toggle('paused', vid.paused);
+  const pb = document.getElementById('vPlay'); pb.textContent = vid.paused ? '▶' : '❚❚'; pb.setAttribute('aria-label', vid.paused ? 'Play' : 'Pause');
+  const mb = document.getElementById('vMute'); mb.textContent = vid.muted ? '🔇' : '🔊'; mb.setAttribute('aria-label', vid.muted ? 'Unmute' : 'Mute');
+}
+vid.addEventListener('loadedmetadata', () => {
+  seek.max = vid.duration;
+  paint();
+});
+if (vid.readyState >= 1) vid.dispatchEvent(new Event('loadedmetadata'));
+['timeupdate', 'seeked'].forEach(ev => vid.addEventListener(ev, paint));
+['play', 'pause', 'volumechange'].forEach(ev => vid.addEventListener(ev, sync));
+
+const vwrap = document.getElementById('vwrap'); let touchT = null;
+function showBarTouch() { vwrap.classList.add('touch'); clearTimeout(touchT); touchT = setTimeout(() => { if (!scrubbing) vwrap.classList.remove('touch'); }, 3000); }
+vwrap.addEventListener('touchstart', e => {
+  const revealed = vwrap.classList.contains('touch');
+  showBarTouch();
+  if (!revealed && e.target === vid) { e.preventDefault(); }   // first tap on the video just reveals the controls
+}, {passive: false});
+vwrap.addEventListener('touchmove', showBarTouch, {passive: true});
+
+function togglePlay() { if (vid.paused) { userPaused = false; vid.play().catch(() => {}); } else { userPaused = true; vid.pause(); } }
+vid.onclick = togglePlay;
+document.getElementById('vPlay').onclick = togglePlay;
+document.getElementById('vMute').onclick = () => { vid.muted = !vid.muted; };
+// Muted it loops quietly; with sound on it stops at the end so the viewer can pick the next call.
+vid.addEventListener('volumechange', () => { vid.loop = vid.muted; });
+vid.onended = () => { userPaused = true; sync(); };
+
+// seek bar: drag to scrub (pauses while dragging), hover shows time + scene
+let wasPlaying = false;
+seek.addEventListener('pointerdown', () => { scrubbing = true; wasPlaying = !vid.paused; vid.pause(); });
+seek.addEventListener('input', () => { vid.currentTime = +seek.value; paint(); });
+const endScrub = () => { if (!scrubbing) return; scrubbing = false; vid.currentTime = +seek.value; if (wasPlaying) vid.play().catch(() => {}); };
+seek.addEventListener('pointerup', endScrub); seek.addEventListener('change', endScrub);
+document.getElementById('scrub').addEventListener('pointermove', e => {
+  const r = seek.getBoundingClientRect(), f = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)), t = f * (vid.duration || 0);
+  tip.textContent = fmt(t);
+  tip.style.left = (f * 100) + '%';
+});
+
+// keyboard: space/k play-pause, ←/→ 5 s, m mute, f full screen (when the player has focus)
+player.tabIndex = 0;
+player.addEventListener('keydown', e => {
+  if (e.target === seek && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) return;
+  const k = e.key.toLowerCase();
+  if (k === ' ' || k === 'k') { e.preventDefault(); togglePlay(); }
+  else if (k === 'arrowright') { vid.currentTime = Math.min(vid.duration, vid.currentTime + 5); }
+  else if (k === 'arrowleft') { vid.currentTime = Math.max(0, vid.currentTime - 5); }
+  else if (k === 'm') { document.getElementById('vMute').click(); }
+  else if (k === 'f') { document.getElementById('vFull').click(); }
+});
+
+// full screen: use native controls while full screen
+document.getElementById('vFull').onclick = () => {
+  if (document.fullscreenElement) document.exitFullscreen();
+  else (vid.requestFullscreen || vid.webkitEnterFullscreen || (() => {})).call(vid);
+};
+document.addEventListener('fullscreenchange', () => { vid.controls = document.fullscreenElement === vid; });
+
+// case picker: each option is its own short clip
+document.getElementById('chapters').onclick = e => {
+  const b = e.target.closest('button[data-case]'); if (!b) return;
+  document.querySelectorAll('#chapters button').forEach(x => { const on = x === b; x.classList.toggle('on', on); x.setAttribute('aria-selected', on); });
+  const c = b.dataset.case;
+  vid.poster = `/static/media/case-${c}.jpg`; vid.src = `/static/media/case-${c}.mp4`;
+  vid.setAttribute('aria-label', `Scam Shield demo: ${CASES[c]} (captions on)`);
+  userPaused = false; vid.load(); vid.play().catch(() => {});
+};
+sync(); paint();
+</script>
+</body>
+</html>

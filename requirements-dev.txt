@@ -1,0 +1,6 @@
+# Tests, audio scripts and video recording (not needed in production)
+-r requirements.txt
+numpy==2.0.2
+pytest
+playwright
+imageio-ffmpeg
